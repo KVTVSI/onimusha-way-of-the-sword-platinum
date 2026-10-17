@@ -1,0 +1,1367 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Платина: Onimusha: Way of the Sword</title>
+<meta name="theme-color" content="#0c1226">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%230c1226'/%3E%3Cpath%20fill='%23e8384e'%20d='M11%2015Q3%2010%206%202Q10%208%2014%2013ZM21%2015Q29%2010%2026%202Q22%208%2018%2013Z'/%3E%3Ccircle%20cx='16'%20cy='19'%20r='9'%20fill='%23c42a3e'/%3E%3Ccircle%20cx='16'%20cy='19'%20r='3.4'%20fill='%238fd8f5'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style id="core-css">
+/* Ядро: только раскладка. Цвета и украшения — в #theme */
+:root{--safe-t:env(safe-area-inset-top,0px);--safe-r:env(safe-area-inset-right,0px);--safe-b:env(safe-area-inset-bottom,0px);--safe-l:env(safe-area-inset-left,0px);--tabbar-h:56px;--gut:16px}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;min-height:100dvh;font:1rem/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#080c1a;color:#e6ebff;overflow-wrap:anywhere}
+html.locked,html.locked body{overflow:hidden}
+.hdr{position:sticky;top:0;z-index:20;padding:calc(var(--safe-t) + 8px) calc(var(--safe-r) + var(--gut)) 8px calc(var(--safe-l) + var(--gut));background:#0c1226}
+.hdr>*{max-width:720px;margin-left:auto;margin-right:auto}
+main{max-width:720px;margin:0 auto;padding:var(--gut) calc(var(--safe-r) + var(--gut)) calc(var(--tabbar-h) + var(--safe-b) + 24px) calc(var(--safe-l) + var(--gut))}
+[role=tabpanel][hidden],[hidden]{display:none!important}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:center;padding:0 var(--safe-r) var(--safe-b) var(--safe-l);background:#0c1226}
+.tabbar [role=tab]{flex:1;max-width:160px;min-height:var(--tabbar-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px 2px;background:none;border:0;color:inherit;font:inherit;font-size:.8125rem;cursor:pointer}
+.tabbar [role=tab] svg{width:24px;height:24px}
+.tabbar [aria-selected=true]{color:#8fd8f5}
+button,input,select,textarea{font:inherit;font-size:max(16px,1rem);color:inherit}
+button{min-height:44px;cursor:pointer}
+a{color:inherit}
+.more{display:inline-flex;align-items:center;min-height:44px}
+input[type=file],select,input[type=search]{min-height:44px;max-width:100%}
+textarea{display:block;width:100%}
+.fc{display:flex;align-items:center;gap:8px;min-height:44px}
+.fc input{width:22px;height:22px}
+.sheet-wrap{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet-bg{position:absolute;inset:0;background:rgba(0,0,0,.6)}
+.sheet{position:relative;width:100%;max-width:760px;max-height:88dvh;display:flex;flex-direction:column;border-radius:16px 16px 0 0;background:#10183a;padding-bottom:var(--safe-b);transform:translateY(100%);transition:transform .2s ease-out}
+.sheet-wrap.open .sheet{transform:none}
+.sheet.drag{transition:none}
+.sheet-head{position:relative;display:flex;justify-content:flex-end;align-items:center;min-height:44px;padding:0 8px;touch-action:none}
+.sheet-grip{position:absolute;left:50%;top:8px;width:40px;height:4px;margin-left:-20px;border-radius:2px;background:#4a5378}
+.sheet-x{min-width:44px;background:none;border:0;font-size:1.5rem;line-height:1}
+.sheet-body{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:0 calc(var(--safe-r) + var(--gut)) var(--gut) calc(var(--safe-l) + var(--gut))}
+.spoiler .sp-btn{min-height:44px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.bar{height:6px;border-radius:3px;overflow:hidden;background:#222a4a}
+.bar>i{display:block;height:100%;width:0;background:#8fd8f5}
+.card{display:flex;align-items:center;gap:8px}
+.card-main{flex:1;min-width:0;display:flex;align-items:center;gap:8px;padding:6px 0;text-align:left;background:none;border:0}
+.mark{flex:none;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center}
+.ico{width:24px;height:24px;flex:none}
+@media (min-width:1000px){html{font-size:112.5%}main,.hdr>*{max-width:960px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+<style id="screens">
+/* Разметка экранов: размеры и раскладка. Цвета, украшения и анимации — в #theme */
+/* == общие == */
+body{font-size:var(--fs-base);line-height:var(--lh)}
+h1,h2,h3,p{margin:0}
+.ico{display:inline-flex;width:24px;height:24px;flex:none}
+.ico svg{display:block;width:100%;height:100%}
+.sec-h{display:flex;align-items:center;gap:.5rem;font-size:var(--fs-l);font-weight:700;line-height:1.25;margin:var(--sp-6) 0 var(--sp-3)}
+[role=tabpanel]>.sec-h:first-child,[role=tabpanel]>section:first-child>.sec-h:first-child{margin-top:var(--sp-2)}
+.sub-h{display:flex;align-items:center;gap:.45rem;font-size:var(--fs-m);font-weight:650;line-height:1.3;margin:var(--sp-5) 0 var(--sp-2)}
+.sec-h .ico,.sub-h .ico{width:1.15em;height:1.15em}
+.muted{color:var(--muted)}
+.small{font-size:var(--fs-xs)}
+.lead,.hint{color:var(--muted);margin:0 0 var(--sp-3)}
+.hint{font-size:var(--fs-s);margin:var(--sp-2) 0 0}
+.note{padding:var(--sp-3) var(--sp-4);border-radius:var(--r-m);margin:0 0 var(--sp-3)}
+.orn{display:block;height:12px;margin:var(--sp-4) 0}
+.orn svg{display:block;width:100%;height:12px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2);margin:var(--sp-2) 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:var(--tap);padding:.5rem 1rem;border-radius:var(--r-m);font-weight:600;line-height:1.2;text-align:center}
+.btn .ico{width:20px;height:20px}
+.more{gap:.35rem;font-size:var(--fs-s);text-decoration:none}
+.more .ico{width:18px;height:18px}
+.tag{display:inline-block;font-size:var(--fs-xs);font-weight:600;line-height:1.4;padding:.05rem .55rem;border-radius:var(--r-pill);white-space:nowrap}
+/* == тексты, метки, источники == */
+.items{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-2)}
+.item{position:relative;padding:var(--sp-3) var(--sp-4);border-radius:var(--r-m)}
+.item .txt{display:block}
+.item .kind{display:flex;align-items:center;gap:.4rem;font-size:var(--fs-xs);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 0 .2rem}
+.item .kind::before{content:"";width:.5rem;height:.5rem;border-radius:50%;flex:none}
+.imeta{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem .6rem;margin-top:.45rem}
+.lbls{display:inline-flex;flex-wrap:wrap;gap:.3rem}
+.lbl{display:inline-block;font-size:var(--fs-xs);line-height:1.35;padding:.12rem .55rem;border-radius:var(--r-pill);border:1px solid;white-space:nowrap}
+.srcs{font-size:var(--fs-xs);line-height:1.5}
+ol.steps{counter-reset:step}
+ol.steps>.item{counter-increment:step;padding-left:3.1rem}
+ol.steps>.item::before{content:counter(step);position:absolute;left:.8rem;top:.8rem;width:1.65rem;height:1.65rem;border-radius:50%;display:grid;place-items:center;font-size:var(--fs-xs);font-weight:700}
+.spoiler{padding:var(--sp-1) var(--sp-2)}
+.sp-btn{display:inline-flex;align-items:center;gap:.5rem;padding:0 .75rem;border-radius:var(--r-s)}
+.sp-btn .ico{width:20px;height:20px}
+/* == полосы прогресса == */
+.pbar{position:relative;height:8px;border-radius:var(--r-pill);overflow:hidden}
+.pbar>i{position:absolute;inset:0;transform-origin:left center;transform:scaleX(var(--p,0))}
+/* == шапка == */
+.hdr{padding-bottom:0}
+.h-in{padding-bottom:2px}
+.h-row{display:flex;align-items:center;gap:.65rem}
+.h-emb{width:36px;height:36px}
+.h-tt{flex:1;min-width:0}
+.h-title{font-size:var(--fs-xl);font-weight:700;line-height:1.15;letter-spacing:.02em}
+.h-sub{font-size:var(--fs-xs);line-height:1.3}
+.h-spoil{flex:none;width:var(--tap);height:var(--tap);padding:0;border-radius:50%;display:grid;place-items:center}
+.h-spoil svg{width:24px;height:24px}
+.h-prog{display:flex;align-items:center;gap:.75rem;margin-top:.5rem}
+.h-prog .pbar{flex:1}
+.h-count{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.h-meta{font-size:var(--fs-xs);line-height:1.35;margin-top:.15rem}
+.hdr .orn{margin:.35rem 0 0;height:10px}
+.hdr .orn svg{height:10px}
+/* == вкладки == */
+.tabbar [role=tab]{position:relative;font-size:var(--fs-s)}
+.tabbar [role=tab]::before{content:"";position:absolute;top:0;left:50%;width:28px;height:2px;margin-left:-14px;border-radius:2px;opacity:0}
+.tabbar [aria-selected=true]::before{opacity:1}
+/* == карточки трофеев == */
+.cards{display:grid;gap:var(--sp-2)}
+.card{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr) auto;grid-template-areas:"lft nm rar" "lft ft ft";column-gap:var(--sp-3);row-gap:.15rem;align-items:start;padding:var(--sp-2) var(--sp-4) var(--sp-3) var(--sp-2);border-radius:var(--r-m)}
+.card .lft{grid-area:lft;display:flex;flex-direction:column;align-items:center;padding-top:.35rem}
+.card .tc{width:28px;height:28px}
+.card .names{grid-area:nm;min-width:0}
+.card .card-main{flex:none;width:100%;display:flex;align-items:center;gap:.4rem;min-height:var(--tap);padding:0;margin:0;text-align:left;background:none;border:0;font-size:var(--fs-m);font-weight:600;line-height:1.3}
+.card .card-main::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.card .ten{display:block;font-size:var(--fs-s);line-height:1.35;margin-top:-.2rem}
+.card .rar{grid-area:rar;font-size:var(--fs-s);padding-top:.65rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cfoot{grid-area:ft;display:flex;flex-wrap:wrap;align-items:center;gap:.2rem .6rem;font-size:var(--fs-xs);line-height:1.45;margin-top:.2rem}
+.card .mark,.cfoot a{position:relative;z-index:1}
+.hid{width:1em;height:1em;vertical-align:-.12em}
+.card-main .hid{width:18px;height:18px}
+/* == отметки == */
+.mark{width:44px;height:44px;padding:0;margin:0;border:0;background:none;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:44px}
+.mark .mk{display:grid;place-items:center;width:24px;height:24px}
+.mark .mk .ico{width:18px;height:18px}
+.mark.psn .mk{border-radius:50%}
+.mark.psn small{font-size:.75rem;line-height:1;font-weight:700;letter-spacing:.08em}
+.mark.man .mk{border-radius:6px}
+/* == «Сейчас» == */
+.card-box{padding:var(--sp-4);border-radius:var(--r-l)}
+.st-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--sp-3);align-items:center}
+.st-head .kamon{width:34px;height:34px}
+.st-eb{display:block;font-size:var(--fs-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;line-height:1.3}
+.st-name{display:block;font-size:var(--fs-l);font-weight:700;line-height:1.25}
+.st-n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.goal{margin:var(--sp-3) 0 0}
+.time{margin:.25rem 0 0;font-size:var(--fs-s)}
+.tagline{margin:var(--sp-2) 0 0}
+.st-prog{display:flex;align-items:center;gap:.75rem;margin-top:var(--sp-3)}
+.st-prog .pbar{flex:1}
+.st-count{font-size:var(--fs-s);white-space:nowrap;font-variant-numeric:tabular-nums}
+.main-strip{margin:var(--sp-4) 0 0;padding:var(--sp-4);border-radius:var(--r-m)}
+.ms-h{display:flex;align-items:center;gap:.45rem;font-size:var(--fs-m);font-weight:700;margin:0 0 var(--sp-2)}
+.ms-h .ico{width:22px;height:22px}
+.ms-next{font-size:var(--fs-s);font-weight:600;margin:var(--sp-3) 0 var(--sp-2)}
+.main-strip .more{margin-top:var(--sp-2)}
+.pin-row{margin-top:var(--sp-5)}
+.chips-row{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-bottom:var(--sp-2)}
+.pin-chip{min-width:var(--tap);min-height:var(--tap);padding:0 .9rem;border-radius:var(--r-pill);font-weight:700;font-variant-numeric:tabular-nums}
+.fresh{margin-bottom:var(--sp-4)}
+.fresh>.sub-h:first-child{margin-top:var(--sp-2)}
+.plat-done{position:relative;text-align:center;padding:var(--sp-6) var(--sp-4) var(--sp-5);border-radius:var(--r-l)}
+.pd-cup{position:relative;width:96px;height:96px;margin:0 auto var(--sp-3);display:grid;place-items:center}
+.pd-cup .tc{width:72px;height:72px;position:relative}
+.plat-done h2{font-size:var(--fs-xl);font-weight:700}
+.pd-date,.pd-sum{margin-top:.25rem}
+.plat-done .tiles{margin-top:var(--sp-4)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(4.6rem,1fr));gap:var(--sp-2);margin:var(--sp-2) 0}
+.tile{display:grid;justify-items:center;gap:.1rem;padding:var(--sp-3) var(--sp-1);border-radius:var(--r-m);text-align:center}
+.tile .tc{width:28px;height:28px}
+.tl-n{font-weight:700;font-variant-numeric:tabular-nums}
+.tl-l{font-size:var(--fs-xs)}
+/* == «План» == */
+.warns{margin-bottom:var(--sp-2)}
+.stages{display:grid;gap:var(--sp-3)}
+.stage{border-radius:var(--r-m);overflow:hidden}
+.stage>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:var(--sp-2) var(--sp-3);min-height:var(--tap);padding:var(--sp-3) var(--sp-4)}
+.stage>summary::-webkit-details-marker{display:none}
+.stage>summary .kamon{width:28px;height:28px}
+.stage>summary .st-name{font-size:var(--fs-m)}
+.stage>summary .tag{margin-top:.25rem}
+.stage>summary .pbar{grid-column:1/-1}
+.chev{width:22px;height:22px}
+.st-body{padding:var(--sp-2) var(--sp-4) var(--sp-4)}
+.st-body>.goal{margin-top:var(--sp-2)}
+/* == «Трофеи» == */
+.tools{display:flex;gap:var(--sp-2);align-items:stretch}
+.sbox{flex:1;min-width:0;position:relative;display:flex;align-items:center}
+.sbox .ico{position:absolute;left:.8rem;width:20px;height:20px;pointer-events:none}
+.sbox input{width:100%;min-height:48px;padding:.5rem .75rem .5rem 2.6rem;border-radius:var(--r-m);font-size:max(16px,var(--fs-base));-webkit-appearance:none;appearance:none}
+.flt-btn{flex:none;position:relative;padding:0 .9rem}
+.flt-n{min-width:1.4rem;height:1.4rem;padding:0 .3rem;border-radius:var(--r-pill);display:inline-grid;place-items:center;font-size:var(--fs-xs)}
+.flt{display:grid;gap:var(--sp-3);margin-top:var(--sp-2);padding:var(--sp-4);border-radius:var(--r-m)}
+.fsel{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:var(--sp-3)}
+.fl{display:grid;gap:.3rem;font-size:var(--fs-s)}
+.fl select{width:100%;min-height:var(--tap);padding:0 .6rem;border-radius:var(--r-s)}
+.fchips{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.fchips .fc{padding:0 .85rem;border-radius:var(--r-pill);font-size:var(--fs-s);cursor:pointer}
+.fchips .fc input{width:18px;height:18px;margin:0}
+.seg{display:flex;border-radius:var(--r-m);overflow:hidden}
+.seg button{flex:1;min-width:0;padding:.25rem .4rem;border:0;font-size:var(--fs-s);line-height:1.2}
+.found{font-size:var(--fs-s);margin:var(--sp-3) 0 0}
+.grp-h{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .6rem;font-size:var(--fs-m);font-weight:700;line-height:1.3;margin:var(--sp-5) 0 var(--sp-2)}
+.grp:first-child .grp-h{margin-top:var(--sp-3)}
+.ico-w{display:inline-flex}
+.ico-w .tc{width:22px;height:22px}
+.grp-n{font-size:var(--fs-s);font-weight:600;font-variant-numeric:tabular-nums}
+.empty{padding:var(--sp-5) 0;text-align:center}
+/* == «Сбор» == */
+.coll-list .item{padding-left:var(--sp-5)}
+/* == «Инфо» == */
+.est{display:grid;gap:var(--sp-2)}
+.est-row{display:grid;grid-template-columns:minmax(4.5rem,auto) minmax(0,1fr);gap:.1rem var(--sp-3);align-items:baseline;padding:var(--sp-3) var(--sp-4);border-radius:var(--r-m)}
+.est-v{font-size:var(--fs-l);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.est-row .imeta{grid-column:2;margin-top:.15rem}
+.votes{font-size:var(--fs-xs)}
+.tot{margin:var(--sp-2) 0 0}
+.flags{list-style:none;padding:0;margin:var(--sp-3) 0;display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.flg{font-size:var(--fs-s);padding:.3rem .8rem;border-radius:var(--r-pill)}
+.unoff-all{font-size:var(--fs-xs);font-style:italic;margin:var(--sp-2) 0}
+.conflicts{display:grid;gap:var(--sp-3)}
+.conflict{padding:var(--sp-4);border-radius:var(--r-m)}
+.cf-h{font-size:var(--fs-base);font-weight:650;margin:0 0 var(--sp-2)}
+.conflict .item{padding:var(--sp-2) var(--sp-3)}
+.src-list{list-style:none;margin:0;padding:0;font-size:var(--fs-s)}
+.src-list li{display:flex;flex-direction:column;justify-content:center;min-height:var(--tap);padding:.4rem 0}
+.src-list a{align-self:flex-start;font-weight:600}
+.src-t{font-size:var(--fs-xs);line-height:1.35}
+.imp{display:grid;gap:var(--sp-2)}
+.imp .row{margin:0}
+.imp-file{width:100%;padding:.5rem;border-radius:var(--r-m)}
+.imp-text{min-height:7rem;padding:.6rem .75rem;border-radius:var(--r-m);resize:vertical}
+.imp-msg:empty{display:none}
+/* == шторка == */
+.sheet-x{width:var(--tap);height:var(--tap)}
+.sh-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--sp-3);align-items:center}
+.sh-cup{position:relative;width:68px;height:68px;display:grid;place-items:center}
+.sh-cup::before{content:"";position:absolute;inset:0;border-radius:50%}
+.sh-cup .tc{position:relative;width:48px;height:48px}
+.sh-head .tru{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;font-size:var(--fs-l);font-weight:700;line-height:1.25}
+.sh-head .tru .hid{width:20px;height:20px}
+.sh-head .ten{font-size:var(--fs-s);margin-top:.15rem}
+.unoff{font-size:var(--fs-xs);font-style:italic;margin-top:.1rem}
+.desc{font-size:var(--fs-m);line-height:1.45;margin:var(--sp-4) 0 var(--sp-3)}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{font-size:var(--fs-xs);line-height:1.4;padding:.2rem .65rem;border-radius:var(--r-pill)}
+.sh-st{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .6rem;margin:var(--sp-3) 0 0}
+.man-btn .mk{display:grid;place-items:center;width:22px;height:22px;border-radius:6px}
+.man-btn .mk .ico{width:16px;height:16px}
+.how .sub-h{margin-top:0}
+/* == эффект платины == */
+.plat-fx{position:fixed;left:50%;top:42%;width:0;height:0;z-index:60;pointer-events:none}
+.plat-fx i{position:absolute;left:0;top:0;display:block}
+.plat-fx .ring{width:160px;height:160px;margin:-80px 0 0 -80px;border-radius:50%}
+.plat-fx .petal{width:10px;height:16px;margin:-8px 0 0 -5px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%}
+/* == адаптив == */
+@media (min-width:1000px){
+  .card{padding:var(--sp-3) var(--sp-5) var(--sp-3) var(--sp-3)}
+  .card-box,.main-strip{padding:var(--sp-5)}
+}
+</style>
+<style id="theme">
+/* @@THEME:BEGIN@@ */
+/* == палитра: ночной Киото, лунный свет, душа Они == */
+:root{
+  color-scheme:dark;
+  --bg:#080c1a; --bg-2:#0c1226; --bg-glow:#1a1f4a;
+  --card:#121a32; --card-2:#18213e; --card-done:#0f1529;
+  --sheet:#141c38; --overlay:rgba(3,5,14,.72);
+  --text:#e4e8f4; --muted:#8e98b6; --dim:#646d8c;
+  --line:#243058; --line-soft:rgba(120,140,200,.14);
+  --accent:#5ec4ee; --accent-strong:#8fd8f5; --accent-soft:rgba(94,196,238,.14);
+  --blue:#3b6fd6; --indigo:#4a3fb0; --indigo-2:#2a2470;
+  --oni:#c42a3e; --oni-glow:rgba(214,40,62,.38); --oni-soft:rgba(196,42,62,.12);
+  --t-plat:#a6dcf6; --t-gold:#e6c24a; --t-silver:#a8adb8; --t-bronze:#c27a48;
+  --st-ok:#3fae7a; --st-unconf:#e09a2c; --st-old:#7b8192; --st-pc:#9a6ad6;
+  --mark-psn:#5ec4ee; --mark-manual:#3b6fd6; --mark-off:#2c3760;
+  --sh-card:0 1px 0 rgba(255,255,255,.03) inset,0 6px 18px rgba(0,0,0,.45);
+  --sh-sheet:0 -12px 40px rgba(0,0,0,.6);
+  --sh-glow:0 0 0 1px var(--accent-soft),0 0 18px rgba(94,196,238,.18);
+  --r-s:8px; --r-m:12px; --r-l:18px; --r-sheet:22px; --r-pill:999px;
+  --sp-1:.25rem; --sp-2:.5rem; --sp-3:.75rem; --sp-4:1rem; --sp-5:1.5rem; --sp-6:2rem;
+  --tap:44px; --tabbar-h:60px;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --fs-xs:clamp(.8125rem,.79rem + .1vw,.95rem);
+  --fs-s:clamp(.875rem,.84rem + .15vw,1rem);
+  --fs-base:clamp(1rem,.95rem + .25vw,1.15rem);
+  --fs-m:clamp(1.0625rem,1rem + .3vw,1.3rem);
+  --fs-l:clamp(1.2rem,1.1rem + .5vw,1.6rem);
+  --fs-xl:clamp(1.0625rem,.92rem + .9vw,1.9rem);
+  --lh:1.5;
+  --ease:cubic-bezier(.2,.7,.2,1); --t-fast:160ms; --t-tab:180ms; --t-sheet:280ms;
+}
+/* цвета типов и меток */
+.t-platinum{--c:var(--t-plat)} .t-gold{--c:var(--t-gold)} .t-silver{--c:var(--t-silver)} .t-bronze{--c:var(--t-bronze)}
+.tc{color:var(--c,var(--t-silver))}
+.lbl-ok{--l:var(--st-ok)} .lbl-unconf{--l:var(--st-unconf)} .lbl-old{--l:var(--st-old)} .lbl-pc{--l:var(--st-pc)} .lbl-x{--l:var(--muted)}
+.lbl{color:var(--l);border-color:color-mix(in srgb,var(--l) 70%,transparent);background:color-mix(in srgb,var(--l) 14%,transparent)}
+
+/* == фон == */
+body{font-family:var(--font);color:var(--text);background-color:var(--bg);
+  background-image:radial-gradient(120% 60% at 50% -10%,var(--bg-glow),transparent 60%),radial-gradient(80% 40% at 50% 110%,var(--oni-soft),transparent 70%);
+  background-attachment:fixed}
+body::before{content:"";position:fixed;inset:-20% -10%;z-index:-1;pointer-events:none;opacity:.35;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%,var(--oni-glow),transparent),radial-gradient(1.5px 1.5px at 78% 9%,var(--oni-glow),transparent),
+    radial-gradient(2px 2px at 34% 46%,var(--oni-glow),transparent),radial-gradient(1.5px 1.5px at 88% 38%,var(--oni-glow),transparent),
+    radial-gradient(1.5px 1.5px at 22% 72%,var(--oni-glow),transparent),radial-gradient(2px 2px at 61% 64%,var(--oni-glow),transparent),
+    radial-gradient(1.5px 1.5px at 47% 88%,var(--oni-glow),transparent),radial-gradient(1.5px 1.5px at 93% 81%,var(--oni-glow),transparent),
+    radial-gradient(1.5px 1.5px at 6% 52%,var(--oni-glow),transparent),
+    radial-gradient(1.5px 1.5px at 55% 24%,rgba(143,216,245,.35),transparent),radial-gradient(1.5px 1.5px at 70% 52%,rgba(143,216,245,.35),transparent),
+    radial-gradient(1.5px 1.5px at 28% 32%,rgba(143,216,245,.35),transparent),radial-gradient(1.5px 1.5px at 82% 70%,rgba(143,216,245,.35),transparent);
+  animation:soulDrift 60s linear infinite;will-change:transform}
+@keyframes soulDrift{0%{transform:translate3d(0,0,0);opacity:.25}25%{transform:translate3d(1.5%,-4%,0);opacity:.4}50%{transform:translate3d(-1%,-8%,0);opacity:.3}75%{transform:translate3d(1%,-12%,0);opacity:.4}100%{transform:translate3d(0,-16%,0);opacity:.25}}
+a{color:var(--muted);text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+::selection{background:rgba(94,196,238,.3)}
+
+/* == шапка == */
+.hdr{background:linear-gradient(180deg,var(--bg-2) 0,#141a44 100%);border-bottom:1px solid var(--line);box-shadow:0 8px 24px rgba(3,5,14,.55)}
+.h-emb{color:var(--oni);filter:drop-shadow(0 0 6px var(--oni-glow));animation:oniPulse 6s ease-in-out infinite}
+@keyframes oniPulse{0%,100%{filter:drop-shadow(0 0 4px var(--oni-glow))}50%{filter:drop-shadow(0 0 9px var(--oni-glow))}}
+.h-sub,.h-meta{color:var(--muted)}
+.h-count{color:var(--accent)}
+.h-spoil{background:rgba(255,255,255,.02);border:1px solid var(--line);color:var(--muted);transition:color var(--t-fast),border-color var(--t-fast),background var(--t-fast)}
+.h-spoil[aria-pressed=true]{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.hdr .orn{color:var(--line)}
+.hdr.flash{animation:hdrFlash 1.6s ease-out}
+@keyframes hdrFlash{0%{box-shadow:0 0 0 rgba(166,220,246,0)}20%{box-shadow:0 0 36px rgba(166,220,246,.6);border-bottom-color:var(--t-plat)}100%{box-shadow:0 8px 24px rgba(3,5,14,.55)}}
+
+/* == полосы прогресса == */
+.pbar{background:var(--card-2);box-shadow:inset 0 0 0 1px var(--line)}
+.pbar>i{background:linear-gradient(90deg,var(--indigo),var(--blue) 60%,var(--accent));box-shadow:0 0 10px rgba(94,196,238,.5);transition:transform .8s var(--ease)}
+.pbar.full>i{background:linear-gradient(90deg,var(--blue),var(--accent) 50%,var(--t-plat))}
+.pbar.fx>i{animation:barFill .9s var(--ease) both}
+@keyframes barFill{from{transform:scaleX(0)}}
+
+/* == вкладки == */
+.tabbar{background:rgba(10,14,30,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.tabbar [role=tab]{color:var(--dim);transition:color var(--t-fast)}
+.tabbar [role=tab]:hover{color:var(--muted)}
+.tabbar [aria-selected=true]{color:var(--accent)}
+.tabbar [aria-selected=true] svg{filter:drop-shadow(0 0 6px rgba(94,196,238,.45))}
+.tabbar [role=tab]::before{background:var(--accent);box-shadow:0 0 8px var(--accent);transition:opacity var(--t-fast)}
+[role=tabpanel]:not([hidden]){animation:tabIn var(--t-tab) var(--ease)}
+@keyframes tabIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* == кнопки и поля == */
+.btn{background:var(--card-2);color:var(--text);border:1px solid var(--line);transition:background var(--t-fast),border-color var(--t-fast)}
+.btn:hover{border-color:var(--accent);background:#1c2748}
+.btn .ico{color:var(--accent)}
+.btn.ghost{background:transparent}
+.btn.danger{border-color:rgba(224,154,44,.55);color:#f2c27c}
+.btn.danger:hover{background:rgba(224,154,44,.1)}
+.more{color:var(--muted)}
+.more .ico{color:var(--accent)}
+.tag{background:var(--accent-soft);color:var(--accent-strong)}
+.note{background:var(--accent-soft);border:1px solid var(--line);color:var(--text)}
+.sbox input,.fl select,.imp-text,.imp-file{background:var(--card);color:var(--text);border:1px solid var(--line)}
+.sbox input::placeholder,.imp-text::placeholder{color:var(--dim)}
+.sbox input:focus,.fl select:focus,.imp-text:focus{border-color:var(--accent);outline:none;box-shadow:var(--sh-glow)}
+.sbox .ico{color:var(--dim)}
+.orn{color:var(--line)}
+
+/* == тексты и метки == */
+.item{background:var(--card);border:1px solid var(--line-soft)}
+.item .kind{color:var(--muted)}
+.item .kind::before{background:var(--dim)}
+.k-nonreturn .kind::before{background:var(--oni);box-shadow:0 0 6px var(--oni-glow)}
+.k-missable .kind::before{background:var(--st-unconf)}
+.k-bug .kind::before{background:var(--st-pc)}
+.k-online .kind::before,.k-time .kind::before{background:var(--accent)}
+.k-nonreturn{border-left:3px solid var(--oni)}
+ol.steps>.item::before{background:var(--accent-soft);color:var(--accent-strong);border:1px solid rgba(94,196,238,.35)}
+.srcs{color:var(--dim)}
+.srcs a{color:var(--muted)}
+.sp-btn{background:var(--card-2);border:1px dashed var(--line);color:var(--muted)}
+
+/* == карточки == */
+.card{background:var(--card);border:1px solid var(--line-soft);box-shadow:var(--sh-card),inset 3px 0 0 color-mix(in srgb,var(--c) 40%,transparent);transition:background var(--t-fast),border-color var(--t-fast)}
+.card:hover{border-color:var(--line)}
+.card .card-main{color:var(--text)}
+.card .ten{color:var(--muted)}
+.card .rar{color:var(--muted)}
+.card .rar.rare{color:var(--t-gold)}
+.card .hid{color:var(--dim)}
+.cfoot{color:var(--dim)}
+.cfoot .flag.warn{color:var(--st-unconf)}
+.cfoot .psn-d{color:var(--muted)}
+.card.done{background:var(--card-done)}
+.card.done .names{opacity:.62}
+.card.just{animation:cardGlow .6s ease-out}
+@keyframes cardGlow{0%{box-shadow:var(--sh-card),0 0 0 0 var(--c)}40%{box-shadow:var(--sh-card),0 0 0 2px var(--c),0 0 22px color-mix(in srgb,var(--c) 45%,transparent)}100%{box-shadow:var(--sh-card),inset 3px 0 0 color-mix(in srgb,var(--c) 40%,transparent)}}
+
+/* == отметки == */
+.mark .mk{transition:background var(--t-fast),border-color var(--t-fast)}
+.mark .ck{stroke-dasharray:24;stroke-dashoffset:0}
+.mark.psn .mk{background:var(--mark-psn);border:2px solid var(--mark-psn);color:var(--bg)}
+.mark.psn small{color:var(--mark-psn)}
+.mark.man .mk{border:2px solid var(--mark-off);color:transparent}
+.mark.man:hover .mk{border-color:var(--mark-manual)}
+.mark.man.on .mk{background:var(--mark-manual);border-color:var(--mark-manual);color:var(--text)}
+.just .mark .mk,.sh-head.just .sh-cup{animation:markGlow .6s ease-out}
+.just .mark .ck{animation:checkDraw .28s var(--ease) both}
+@keyframes markGlow{0%{box-shadow:0 0 0 0 var(--c)}35%{box-shadow:0 0 0 6px color-mix(in srgb,var(--c) 45%,transparent),0 0 14px var(--c)}100%{box-shadow:0 0 0 10px transparent}}
+@keyframes checkDraw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+
+/* == «Сейчас» == */
+.card-box{background:var(--card);border:1px solid var(--line-soft);box-shadow:var(--sh-card)}
+.st-head{padding:var(--sp-3);margin:calc(-1 * var(--sp-2));border-radius:var(--r-m);background:linear-gradient(90deg,var(--indigo-2),transparent);border-left:3px solid var(--indigo)}
+.st-head.full{border-left-color:var(--accent)}
+.kamon{color:var(--accent)}
+.full .kamon,.stage.full>summary .kamon{color:var(--t-plat)}
+.st-eb{color:var(--accent)}
+.st-n,.st-count,.time{color:var(--muted)}
+.main-strip{background:linear-gradient(135deg,rgba(74,63,176,.28),rgba(59,111,214,.12));border:1px solid var(--line);border-left:3px solid var(--accent)}
+.ms-h .ico{color:var(--accent)}
+.ms-next{color:var(--muted)}
+.main-strip .item{background:rgba(8,12,26,.45)}
+.pin-chip{background:var(--card-2);border:1px solid var(--line);color:var(--muted)}
+.pin-chip:hover{border-color:var(--accent)}
+.pin-chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-strong);box-shadow:var(--sh-glow)}
+.sub-h .ico{color:var(--accent)}
+.plat-done{background:radial-gradient(90% 70% at 50% 0%,rgba(166,220,246,.16),transparent 70%),var(--card);border:1px solid var(--line);box-shadow:var(--sh-card)}
+.pd-cup::before{content:"";position:absolute;inset:-10px;border-radius:50%;background:radial-gradient(var(--t-plat) 0,transparent 68%);opacity:.3}
+.pd-date,.pd-sum{color:var(--muted)}
+.tile{background:var(--card-2);border:1px solid var(--line-soft)}
+.tl-l{color:var(--muted)}
+
+/* == «План» == */
+.stage{background:var(--card);border:1px solid var(--line-soft);box-shadow:var(--sh-card)}
+.stage>summary{background:linear-gradient(90deg,var(--indigo-2),transparent);border-left:3px solid var(--indigo)}
+.stage.full>summary{border-left-color:var(--accent)}
+.stage.cur>summary{box-shadow:inset 0 0 0 1px rgba(94,196,238,.25)}
+.stage>summary:hover{background:linear-gradient(90deg,#322b82,transparent)}
+.chev{color:var(--muted);transition:transform var(--t-fast) var(--ease)}
+.stage[open] .chev{transform:rotate(180deg)}
+.stage[open]>.st-body{animation:expand .2s var(--ease)}
+@keyframes expand{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.stage.dlc{opacity:.92}
+.warn-list .item{background:var(--card)}
+.sec-h .ico{color:var(--st-unconf)}
+
+/* == «Трофеи» == */
+.flt-btn[aria-expanded=true]{border-color:var(--accent);background:var(--accent-soft)}
+.flt-n{background:var(--accent);color:var(--bg);font-weight:700}
+.flt{background:var(--card);border:1px solid var(--line-soft);box-shadow:var(--sh-card)}
+.flt:not([hidden]){animation:expand .2s var(--ease)}
+.fl{color:var(--muted)}
+.fchips .fc{background:var(--card-2);border:1px solid var(--line);color:var(--text);transition:border-color var(--t-fast),background var(--t-fast)}
+.fchips .fc input{accent-color:var(--accent)}
+.fchips .fc:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.seg{border:1px solid var(--line)}
+.seg button{background:var(--card-2);color:var(--muted)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed=true]{background:var(--accent-soft);color:var(--accent-strong);font-weight:700}
+.found,.grp-n{color:var(--muted)}
+.grp-h{color:var(--text)}
+
+/* == «Инфо» == */
+.est-row,.conflict{background:var(--card);border:1px solid var(--line-soft)}
+.est-v{color:var(--accent-strong)}
+.est-s{color:var(--text)}
+.votes{color:var(--dim)}
+.flg{background:var(--card-2);border:1px solid var(--line);color:var(--muted)}
+.flg.yes{border-color:var(--st-unconf);color:#f2c27c;background:rgba(224,154,44,.1)}
+.unoff-all,.unoff{color:var(--dim)}
+.conflict .item{background:var(--card-2)}
+.src-list li{border-bottom:1px solid var(--line-soft)}
+.src-list a{color:var(--muted)}
+.src-t{color:var(--dim)}
+
+/* == шторка == */
+.sheet-bg{background:var(--overlay);opacity:0;transition:opacity .2s ease}
+.sheet-wrap.open .sheet-bg{opacity:1}
+.sheet{background:var(--sheet);border-top:1px solid var(--line);border-radius:var(--r-sheet) var(--r-sheet) 0 0;box-shadow:var(--sh-sheet);transition:transform .2s ease-in}
+.sheet-wrap.open .sheet{transition:transform var(--t-sheet) var(--ease)}
+.sheet.drag{transition:none}
+.sheet-grip{width:36px;margin-left:-18px;background:var(--line)}
+.sheet-x{color:var(--muted)}
+.sheet-x:hover{color:var(--text)}
+.sh-cup::before{background:radial-gradient(var(--c) 0,transparent 70%);opacity:.25}
+.sh-head .ten{color:var(--muted)}
+.sh-head .hid{color:var(--dim)}
+.desc{color:var(--text)}
+.chip{background:var(--card-2);border:1px solid var(--line);color:var(--muted)}
+.chip.ty{color:var(--c);border-color:color-mix(in srgb,var(--c) 50%,transparent)}
+.chip.rare{color:var(--t-gold)}
+.chip.warn{color:var(--st-unconf);border-color:rgba(224,154,44,.5)}
+.sh-st{color:var(--text)}
+.man-btn .mk{border:2px solid var(--mark-off);color:transparent}
+.man-btn.on .mk{background:var(--mark-manual);border-color:var(--mark-manual);color:var(--text)}
+.man-btn .mk .ico{color:inherit}
+.how .item{background:var(--card)}
+
+/* == эффект платины (один раз) == */
+.plat-fx .ring{border:2px solid var(--oni);box-shadow:0 0 24px var(--oni-glow);animation:ringOut 1.2s var(--ease) both}
+.plat-fx .ring.r2{border-color:var(--t-plat);box-shadow:0 0 24px rgba(166,220,246,.5);animation-delay:.25s}
+.plat-fx .petal{background:var(--t-plat);box-shadow:0 0 8px rgba(166,220,246,.6);animation:petalOut 1.5s var(--ease) both}
+.plat-fx .petal.oni{background:var(--oni);box-shadow:0 0 8px var(--oni-glow)}
+@keyframes ringOut{from{transform:scale(.3);opacity:1}to{transform:scale(2.4);opacity:0}}
+@keyframes petalOut{0%{transform:rotate(var(--a)) translateY(0) scale(.5);opacity:1}100%{transform:rotate(var(--a)) translateY(-38vmin) rotate(160deg) scale(1);opacity:0}}
+
+/* == адаптив == */
+@media (min-width:1000px){ body{line-height:1.55} }
+@media (hover:none){ .card:hover{border-color:var(--line-soft)} .btn:hover{background:var(--card-2);border-color:var(--line)} }
+
+/* == без анимаций == */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  body::before{display:none}
+  .plat-fx{display:none}
+}
+/* @@THEME:END@@ */
+</style>
+</head>
+<body>
+<header class="hdr" id="hdr"></header>
+<main id="main">
+  <section id="p-now" role="tabpanel" aria-labelledby="t-now" hidden></section>
+  <section id="p-plan" role="tabpanel" aria-labelledby="t-plan" hidden></section>
+  <section id="p-trophies" role="tabpanel" aria-labelledby="t-trophies" hidden></section>
+  <section id="p-extras" role="tabpanel" aria-labelledby="t-extras" hidden></section>
+  <section id="p-info" role="tabpanel" aria-labelledby="t-info" hidden></section>
+</main>
+<nav class="tabbar" role="tablist" aria-label="Разделы">
+  <button type="button" id="t-now" role="tab" data-tab="now" aria-controls="p-now" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 3v6l5 3 1-1.7-4-2.3V7z"/></svg><span>Сейчас</span></button>
+  <button type="button" id="t-plan" role="tab" data-tab="plan" aria-controls="p-plan" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h4v4H4zm6 1h10v2H10zM4 10h4v4H4zm6 1h10v2H10zm-6 5h4v4H4zm6 1h10v2H10z"/></svg><span>План</span></button>
+  <button type="button" id="t-trophies" role="tab" data-tab="trophies" aria-controls="p-trophies" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.4A5 5 0 0 1 13 14.9V18h3v3H8v-3h3v-3.1A5 5 0 0 1 8.4 12H8a4 4 0 0 1-4-4V5h3zM6 7v1a2 2 0 0 0 1.2 1.8L7 7zm12 0h-1l-.2 2.8A2 2 0 0 0 18 8z"/></svg><span>Трофеи</span></button>
+  <button type="button" id="t-extras" role="tab" data-tab="extras" aria-controls="p-extras" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 4 6v6c0 5 3.4 9 8 10 4.6-1 8-5 8-10V6zm0 2.2L18 7v5c0 3.9-2.5 7.1-6 8-3.5-.9-6-4.1-6-8V7z"/></svg><span>Сбор</span></button>
+  <button type="button" id="t-info" role="tab" data-tab="info" aria-controls="p-info" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 4h2v2h-2zm0 4h2v6h-2z"/></svg><span>Инфо</span></button>
+</nav>
+<div class="sheet-wrap" id="sheet-wrap" hidden>
+  <div class="sheet-bg" data-close></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="sheet-head"><div class="sheet-grip" aria-hidden="true"></div><button type="button" class="sheet-x" data-close aria-label="Закрыть">×</button></div>
+    <div class="sheet-body" id="sheet-body"></div>
+  </div>
+</div>
+<script>
+'use strict';
+/*@@DATA:BEGIN@@*/
+const DATA = {meta:{slug:"onimusha-way-of-the-sword",psnId:"KVTVSI",gameRu:"Onimusha: Way of the Sword",gameEn:"Onimusha: Way of the Sword",version:"PS5",collectedAt:"2026-10-17",hasPlatinum:true,dlcGroups:[],difficulty:[{value:"7.37",scale:10,scope:"основная игра (оценка Stratege, «Сложно»)",votes:46,src:["st2"]},{value:"6.5",scale:10,scope:"основная игра (оценка PowerPyx)",src:["pp1"]},{value:"5–8",scale:10,scope:"оценки игроков форума PSNProfiles (7, 8 и 5–6 из 10)",votes:3,src:["psn2"]}],hours:[{value:"50+",scope:"оценка сайта Stratege (голосование)",votes:46,src:["st2"]},{value:"71 ч",scope:"среднее время получения платины по списку трофеев Stratege (351 платина)",src:["st1"]},{value:"60–70 ч",scope:"оценка PowerPyx",src:["pp1"]},{value:"50–70 ч",scope:"отзывы получивших платину на Stratege (50, 56, 58, 66 ч и 60–70 ч)",src:["st2","st5"]},{value:"≈80 ч",scope:"отзыв получившего платину на форуме PSNProfiles",src:["psn3"]},{value:"≈37 ч",scope:"только первое прохождение на «Экшене» (отзыв на форуме Stratege)",src:["st4"]}],playthroughs:[{value:"2",scope:"первое — на любой сложности (лучше «Экшен»), второе — НГ+ на «Резне»; затем реванши с боссами",src:["st5","st30","pp1","psn2"]}],flags:{online:false,missable:false,bugs:false,grind:true},mainWarnings:[{text:"Финальная миссия «Схватка в Рэндайно» (The Clash at Rendaino) — точка невозврата: после неё свободного перемещения нет. После титров игра возвращает вас к моменту перед этой миссией, так что всё можно добрать.",spoiler:false,labels:["Подтверждено"],src:["pp1","psn2"],kind:"nonreturn"},{text:"Перед финальной миссией и перед стартом НГ+ сделайте ручное сохранение в отдельный слот, чтобы при необходимости вернуться к первому прохождению.",spoiler:false,labels:["Не подтверждено"],src:["psn2"],kind:"nonreturn"},{text:"В игре 1 слот автосохранения и 20 ручных — удобно для приёмов с сохранением и перезагрузкой при прокачке.",spoiler:false,labels:["Не подтверждено"],src:["pp1"],kind:"other"},{text:"Сложность «Резня» открывается только после первого прохождения и проходится в НГ+: для «Истинного Онимуся» и платины нужно минимум два прохождения.",spoiler:false,labels:["Подтверждено"],src:["st30","pp1","psn2","steam2"],kind:"time"},{text:"Улучшения меча, одежды и перчатки не переносятся в НГ+: на «Резне» снаряжение придётся качать заново.",spoiler:false,labels:["Подтверждено"],src:["st6","pp1","psn3","steam2"],kind:"other"},{text:"Навыки, мешочки с ходзуки и амулеты вместе с их улучшениями переносятся в НГ+ — в первом прохождении прокачивайте прежде всего их.",spoiler:false,labels:["Подтверждено"],src:["st6","st34","pp1"],kind:"other"},{text:"По PowerPyx, не переносятся также тайны Киото, Случайные встречи, красные души, материалы улучшения и прогресс открытия Зеркал Духов — закройте тайны и встречи в первом прохождении.",spoiler:false,labels:["Не подтверждено"],src:["pp1"],kind:"other"},{text:"Заметки о гэмма и спасённые комаину переносятся в НГ+.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam3"],kind:"other"},{text:"Последнюю заметку о гэмма (о финальном боссе) можно забрать только после победы над ним, когда игра возвращает вас к точке невозврата.",spoiler:false,labels:["Подтверждено"],src:["st29","steam2"],kind:"other"},{text:"Не тратьте в первом прохождении редкие предметы вроде зеркала воскрешения (Mirror of Revival): они переносятся в НГ+ и пригодятся на «Резне».",spoiler:false,labels:["Подтверждено"],src:["pp1","psn3"],kind:"other"},{text:"Материалы на мешочки и снаряжение пересекаются: накопив их, сохранитесь вручную, прокачайте мешочки ради трофея, загрузитесь и тратьте материалы на снаряжение.",spoiler:false,labels:["Подтверждено"],src:["st36","pp1","steam2"],kind:"other"},{text:"В НГ+ улучшения мешочков начинают действовать только с того момента сюжета, где они изначально открывались.",spoiler:false,labels:["Не подтверждено"],src:["psn3"],kind:"other"},{text:"Реванши с боссами на всех сложностях не закончить, пока игра не пройдена на «Резне»: высшая сложность реванша открывается сюжетом.",spoiler:false,labels:["Не подтверждено"],src:["st32"],kind:"time"},{text:"Синий камень Они на первом уровне легко пропустить: сундук в северо-восточном углу зоны внутри портала аванпоста (нужен бег по стенам). В НГ+ синий камень лежит за домом сохранения.",spoiler:false,labels:["Не подтверждено"],src:["psn4"],kind:"missable"},{text:"На «Резне» нет подсказок действий — привыкайте играть без них ещё на «Экшене».",spoiler:false,labels:["Не подтверждено"],src:["pp1"],kind:"other"},{text:"Финальный босс на «Резне» — главный барьер платины: у игроков уходило от 1 до 14 часов попыток.",spoiler:false,labels:["Не подтверждено"],src:["st2","st5"],kind:"time"},{text:"Один игрок утверждает, что на «Резне» в какой-то момент боя игра перестаёт засчитывать нажатия (парирование, отражение, уклонение); другие это оспаривают — достоверность не подтверждена.",spoiler:false,labels:["Не подтверждено"],src:["st2"],kind:"bug"}],collectibles:[{text:"Тайны Киото — 8 (значок бабочки на карте), трофей «Полное разоблачение»; не переносятся в НГ+.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam2"]},{text:"Случайные встречи — 18 (значок дневника на карте), трофей «Всякая работа важна»; открываются по мере сюжета, не переносятся в НГ+.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam2"]},{text:"Комаину — 36, трофей «Любитель собак»; прогресс переносится в НГ+.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Оружие Они — 7, трофей «Арсенал Они»: два выдаются по сюжету, остальные лежат в определённых местах (подробно — в советах к трофею; место Тихой воды источники называют по-разному).",spoiler:false,labels:["Подтверждено"],src:["pp1","steam1","steam3"]},{text:"Мешочки с ходзуки — 9, трофей «Чудо медицины»; улучшения переносятся в НГ+.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Амулеты — 15, трофей «Как зачарованный»; улучшения переносятся в НГ+.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam2"]},{text:"Заметки о гэмма — 23, трофей «Гэммолог»; последняя — только после финального боя.",spoiler:false,labels:["Подтверждено"],src:["st29","pp1","steam2","steam3"]},{text:"Камни силы — 54 и камни Они — 55: на навыки для «Мастера на все руки».",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Тонкий шёлк (Fine Silk Cloth) и тамахаганэ — по 25: на снаряжение и мешочки.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam2"]},{text:"Как можно раньше купите особые навыки «Зрение Они: сокровища» (Oni Vision: Treasures), «Зрение Они: сокровища 2» (Oni Vision: Treasures 2, после 1-го портала Они) и «Зрение Они: радиус поиска» (Oni Vision: Search Range, после 2-го портала, 5 500 красных душ) и регулярно включайте зрение Они при исследовании.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Всё собирается в свободном перемещении до финальной миссии; после титров игра возвращает вас перед ней, так что ничего не пропадает.",spoiler:false,labels:["Подтверждено"],src:["pp1","psn2","steam4"]},{text:"Как сократить гринд: подбирайте все предметы для обмена на благосклонность, копите красные души, покупайте недостающие материалы у памятника Ёримасы (Yorimasa's Monument) — ассортимент обновляется после крупных сюжетных этапов.",spoiler:false,labels:["Подтверждено"],src:["st2","pp1","psn2"]},{text:"Сундуки по миру наполняются снова, а разломы с мини-боссами (красный дым над городом после взаимодействия с Зеркалом Духов) появляются повторно — так фармятся кожа, закалённое железо и материалы для перчатки.",spoiler:false,labels:["Подтверждено"],src:["st36","st2","psn2"]},{text:"Порядок трат по PowerPyx: при 150 000 благосклонности сделайте ручное сохранение; улучшите амулеты, загрузитесь — улучшите мешочки, загрузитесь — улучшите три нужных амулета, навыки и снаряжение.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}],conflicts:[{topic:"Что сбрасывается при переходе в Новую игру+",variants:[{text:"Сбрасываются только улучшения меча, одежды и перчатки; всё остальное (мешочки, амулеты, навыки) переносится.",src:["st6","psn3"],spoiler:false},{text:"Кроме улучшений меча, одежды и перчатки, не переносятся тайны Киото, Случайные встречи, красные души, материалы улучшения и прогресс открытия Зеркал Духов.",src:["pp1","psn2"],spoiler:false}]},{topic:"Хватает ли камней Они на все навыки за одно прохождение",variants:[{text:"Не хватает: даже собрав буквально всё на «Экшене», автор недосчитался трёх камней Они.",src:["st34"],spoiler:false},{text:"Хватает: камней Они и камней силы достаточно на все навыки (если найти скрытый сундук с синим камнем на первом уровне).",src:["st2","psn2","psn4"],spoiler:false}]},{topic:"Где лежит оружие Они Тихая вода",variants:[{text:"В Ариме, сразу за чекпоинтом «Болото 1».",src:["psn2"],spoiler:false},{text:"В Арасияме.",src:["steam2"],spoiler:false}]},{topic:"Можно ли пропустить оружие Они (Мерцающая пустота, Тихая вода)",variants:[{text:"Пропускаемого нет: все коллекционные предметы собираются в свободном перемещении до финальной миссии.",src:["pp1"],spoiler:false},{text:"В списке, который пересказал игрок форума, Мерцающая пустота и Тихая вода помечены как пропускаемые.",src:["psn2"],spoiler:false}]},{topic:"Как отражать снаряды обратно во врага",variants:[{text:"Удерживать блок (L1) и нажать крест при подлёте снаряда (навык «Отражение», L1 + X).",src:["st49"],spoiler:false},{text:"Удерживая направление вперёд, нажать блок в момент парирования.",src:["pp1"],spoiler:false}]}],unverified:["Коллекционные гайды PowerPyx (тайны Киото, Случайные встречи, комаину, оружие Они, мешочки, амулеты, заметки о гэмма, камни и материалы) не прочитаны: антивирус пользователя заблокировал powerpyx.com из-за проблемы с сертификатом; точные места коллекций не проверены.","Гайд PowerPyx по боссам на «Резне» (Boss Guide) не читался: тактики боссов на высшей сложности известны только из комментариев игроков Stratege и PSNProfiles.","Распределения комаину, Случайных встреч и тайн Киото по главам нет ни в одном источнике: есть только условия открытия, значки на карте и то, что места не исчезают.","Руководства Steam помечены как удалённые и получены пересказом; в одном из них перепутаны места Флейты огненных птиц и Ветрохлёста — места оружия Они нужно сверить в игре.","Соответствие русских названий английским не проверено: Ветрохлёст (Wind-Whipper), нагината Они, Сотрясатель земли (Earth Shaker) и «молоты» у Stratege, Мерцающая пустота (Flashing Void), «сила колонн» у Stratege.","Переносятся ли в НГ+ счётчики убийств оружием Они и в пробуждении Они и счётчик спасённых горожан, однозначно не установлено: ответы на форуме PSNProfiles противоречивы.","Перестают ли появляться горожане для «Народного героя» после очистки города от красного тумана — игроки форума расходятся.","Что запускает появление Бякуэ в храме Киёмидзу-дэра (трофей «Поделом тебе») — точно не известно.","Влияние частоты кадров на окно иссена — пересказ видео, игроки сами не проверяли.","Сообщение о том, что на «Резне» игра перестаёт засчитывать нажатия кнопок, не подтверждено и оспаривается.","Упоминаний патчей, менявших трофеи или баланс, в источниках нет.","Журнал голосов Stratege по времени подгрузился частично; часть тем форума PSNProfiles прочитана только по заголовкам."]},sources:{st1:{site:"Stratege.ru",url:"https://stratege.ru/ps5/games/onimusha_way_of_the_sword/trophies",title:"Трофеи Onimusha: Way of the Sword PS5 | Stratege (список трофеев)"},st2:{site:"Stratege.ru",url:"https://stratege.ru/ps5/games/onimusha_way_of_the_sword/difficulty",title:"Сложность игры Onimusha: Way of the Sword PS5 | Stratege"},st4:{site:"Stratege.ru",url:"https://stratege.ru/forums/threads/137825-Впечатления-об-игре-«Onimusha-Way-of-the-Sword»",title:"Впечатления об игре «Onimusha: Way of the Sword» (тема форума)",date:"2026-09-08"},st5:{site:"Stratege.ru",url:"https://stratege.ru/forums/threads/137818-Сложность-игры-Onimusha-Way-of-the-Sword",title:"Сложность игры Onimusha: Way of the Sword (тема форума, страницы 1-2)",date:"2026-09-07"},st6:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/peerless",title:"Трофей «Непобедимый» / Peerless - Stratege (подсказки игроков)"},st24:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/serves_you_right",title:"Трофей «Поделом тебе» / Serves You Right - Stratege (подсказки игроков)"},st25:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/citizen_savior",title:"Трофей «Народный герой» / Citizen Savior - Stratege (подсказки игроков)"},st29:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/genma-ologist",title:"Трофей «Гэммолог» / Genma-ologist - Stratege (подсказки игроков)"},st30:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/true_onimusha",title:"Трофей «Истинный Онимуся» / True Onimusha - Stratege (подсказки игроков)"},st32:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/glutton_for_punishment",title:"Трофей «Жажда возмездия» / Glutton for Punishment - Stratege (подсказки игроков)"},st34:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/well-rounded",title:"Трофей «Мастер на все руки» / Well-Rounded - Stratege (подсказки игроков)"},st36:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/dressed_to_kill",title:"Трофей «Вооружён до зубов» / Dressed to Kill - Stratege (подсказки игроков)"},st39:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/medical_marvel",title:"Трофей «Чудо медицины» / Medical Marvel - Stratege (подсказки игроков)"},st44:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/wielder_of_oni_armaments",title:"Трофей «Искусство оружия Они» / Wielder of Oni Armaments - Stratege (подсказки игроков)"},st45:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/onis_oni",title:"Трофей «Свой среди Они» / Oni's Oni - Stratege (подсказки игроков)"},st47:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/flow_state",title:"Трофей «В состоянии потока» / Flow State - Stratege (подсказки игроков)"},st49:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/pinch_hitter",title:"Трофей «Ловкий удар» / Pinch Hitter - Stratege (подсказки игроков)"},st57:{site:"Stratege.ru",url:"https://stratege.ru/ps5/trophies/onimusha_way_of_the_sword/spisok/genma_griller",title:"Трофей «Шашлык из гэмма» / Genma Griller - Stratege (подсказки игроков)"},pp1:{site:"PowerPyx",url:"https://www.powerpyx.com/onimusha-way-of-the-sword-trophy-guide-roadmap/",title:"Onimusha Way of the Sword Trophy Guide & Roadmap",date:"September 3, 2026 (дата публикации; дата обновления на странице не указана)"},psn2:{site:"PSNProfiles",url:"https://forum.psnprofiles.com/topic/199354-trophy-thoughts/",title:"Trophy Thoughts? (forum, 4 pages)",date:"2026-09-03"},psn3:{site:"PSNProfiles",url:"https://forum.psnprofiles.com/topic/199985-how-bad-is-carnage-difficulty/",title:"How bad is carnage difficulty? (forum, 2 pages)",date:"2026-09-19"},psn4:{site:"PSNProfiles",url:"https://forum.psnprofiles.com/topic/199532-missing-1-oni-stone-blue-solved/",title:"Missing 1 Oni Stone (Blue) [Solved] (forum)",date:"2026-09-07"},steam1:{site:"Steam",url:"https://steamcommunity.com/sharedfiles/filedetails/?id=3795343771",title:"Onimusha: Way of the Sword Trophy Guide & Roadmap (Full Achievement List 2026 Updated)"},steam2:{site:"Steam",url:"https://steamcommunity.com/sharedfiles/filedetails/?id=3796732920",title:"Onimusha: Way of the Sword | Руководство по достижениям"},steam3:{site:"Steam",url:"https://steamcommunity.com/sharedfiles/filedetails/?id=3795654091",title:"《鬼武者：剑之道》全成就白金攻略指南"},steam4:{site:"Steam",url:"https://steamcommunity.com/sharedfiles/filedetails/?id=3795795561",title:"100% достижений Onimusha: Way of the Sword"}},stages:[{id:"s1",title:"Этап 1: Первое прохождение до финальной миссии",goal:"Пройти сюжет на сложности «Экшен» до финальной миссии, по ходу спасая горожан, исследуя Киото и набирая боевые счётчики. До финальной миссии ничего не пропускается.",time:"≈25 ч",dlc:false,steps:[{text:"Выберите сложность «Экшен»: «Сюжет» — лёгкая, а «Экшен» готовит к «Резне», которая открывается только после первого прохождения.",spoiler:false,labels:["Подтверждено"],src:["st30","st2","pp1"]},{text:"Играйте в своём темпе: по PowerPyx, до финальной миссии все коллекции и задания остаются доступными, пропустить ничего нельзя.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Трофеи за сюжетных боссов (№2–12) выдаются по ходу прохождения — специально готовиться к ним не нужно.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Как можно раньше купите три особых навыка: «Зрение Они: сокровища» (Oni Vision: Treasures), «Зрение Они: сокровища 2» (Oni Vision: Treasures 2) и «Зрение Они: радиус поиска» (Oni Vision: Search Range) — и регулярно включайте зрение Они при исследовании.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Спасайте всех горожан, на которых нападают гэмма: после боя обязательно поговорите со спасённым, иначе он не засчитается. Нужно 30 человек («Народный герой»); торговец («Эгоистичный альтруизм») почти наверняка попадётся раньше.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Подбирайте все предметы, которые можно обменять на благосклонность (Favor), — она понадобится для улучшения амулетов.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Ресурсы вкладывайте прежде всего в навыки, мешочки с ходзуки и амулеты: они переносятся в НГ+, а улучшения снаряжения там сбросятся.",spoiler:false,labels:["Подтверждено"],src:["st6","st34","pp1"]},{text:"Не тратьте редкие предметы вроде зеркала воскрешения (Mirror of Revival): они переносятся в НГ+ и пригодятся на «Резне».",spoiler:false,labels:["Подтверждено"],src:["pp1","psn3"]},{text:"Боевые счётчики (состояние пламени, рефлекс-комбо, оружие Они, пробуждение Они, иссен, цепь иссен, скрытные убийства, отражённые снаряды, попадания в голову, объекты окружения, контрзахваты, пробитие защиты, щиты и броня, поглощение душ) копите по ходу сюжета.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"«Берсерк» можно получить уже в обучении: доведите трёх врагов до готовности к иссену и после каждого брейк-иссена лёгкой атакой переходите к следующему.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"«Шашлык из гэмма» делается, как только появится заряженный выстрел Флейты огненных птиц: соберите трёх слабых врагов вместе и выстрелите в середину группы.",spoiler:false,labels:["Подтверждено"],src:["pp1","st57"]},{text:"В миссии «Ученик Они» (The Oni's Apprentice) откроется тренировочная площадка: в Зале Эммы (Emma's Hall) позвоните в колокол в углу. Там есть упражнения тренировки для боевых трофеев и реванш с боссом.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Учитесь играть без подсказок действий уже на «Экшене»: на «Резне» их не будет.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}],warnings:[{text:"Синий камень Они на первом уровне легко пропустить: сундук в северо-восточном углу зоны внутри портала аванпоста, туда нужен бег по стенам. В НГ+ синий камень лежит за домом сохранения.",spoiler:false,labels:["Не подтверждено"],src:["psn4"],kind:"missable"},{text:"По словам игроков форума PSNProfiles, счётчики убийств оружием Они и в состоянии пробуждения Они не переносятся в НГ+ — закройте «Искусство оружия Они» и «Свой среди Они» в первом прохождении.",spoiler:false,labels:["Не подтверждено"],src:["psn2"],kind:"other"},{text:"Один игрок пишет, что после очистки города от красного тумана горожане перестают появляться; другой возражает, что они встречаются до самой точки невозврата. Надёжнее спасать горожан сразу, не откладывая.",spoiler:false,labels:["Не подтверждено"],src:["psn2"],kind:"missable"}],trophies:[2,3,4,5,6,7,8,9,10,11,12,15,17,20,21,22,30,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52]},{id:"s2",title:"Этап 2: Зачистка перед финальной миссией",goal:"Пока доступно свободное перемещение, закрыть все коллекции и побочные задания, прокачать мешочки с ходзуки и амулеты и добить боевые счётчики.",time:"≈10 ч",dlc:false,steps:[{text:"Соберите все коллекции: 8 тайн Киото, 18 Случайных встреч, 36 комаину, 7 оружий Они, 9 мешочков с ходзуки, 15 амулетов, 23 заметки о гэмма, а также материалы улучшения (камни силы, камни Они, тонкий шёлк (Fine Silk Cloth), тамахаганэ).",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Тайны Киото и Случайные встречи закройте до финальной миссии: по PowerPyx, их прогресс не переносится в НГ+.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Бякуэ («Поделом тебе») встречается во время Случайной встречи «Меткий лучник: храм Киёмидзу-дэра» (Ace Archer: Kiyomizu-dera Temple): за стеной Они к северу от Зеркала Духов у ворот Нио-мон.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Для «Как зачарованный» нужны 15 амулетов из самой игры: амулеты из предзаказа в счёт не идут.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"Накопив 150 000 благосклонности, сделайте ручное сохранение и улучшите все амулеты до максимума («Божественная защита», «Как зачарованный»); кроме благосклонности, понадобится около 135 000 красных душ.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Загрузите это сохранение и прокачайте все мешочки с ходзуки до максимума («Здоровье дороже золота», «Чудо медицины»): материалы для мешочков и снаряжения общие, поэтому трофей берут через сохранение и загрузку.",spoiler:false,labels:["Подтверждено"],src:["pp1","st36"]},{text:"Снова загрузитесь и вложите ресурсы в три амулета, которые будете носить дальше, а также в навыки и снаряжение; недостающие материалы докупайте у памятника Ёримасы (Yorimasa's Monument).",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Недостающие боевые счётчики добейте на тренировочной площадке: для каждого из них есть своё упражнение тренировки.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Перед финальной миссией сделайте ручное сохранение в отдельный слот (в игре 20 ручных слотов и одно автосохранение).",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}],warnings:[{text:"Финальная миссия «Схватка в Рэндайно» (The Clash at Rendaino) — точка невозврата: после неё свободного перемещения нет. Начинайте её, только когда коллекции, задания и прокачка мешочков и амулетов закрыты.",spoiler:false,labels:["Не подтверждено"],src:["pp1"],kind:"nonreturn"},{text:"Источники расходятся в том, что переносится в НГ+. По Stratege и форуму PSNProfiles, сбрасываются только улучшения меча, одежды и перчатки, а всё остальное переносится.",spoiler:false,labels:["Подтверждено"],src:["st6","psn3"],kind:"other"},{text:"По PowerPyx, в НГ+ не переносятся также тайны Киото, Случайные встречи, красные души, материалы улучшения и прогресс открытия Зеркал Духов. Безопасный вариант — получить «Полное разоблачение» и «Всякая работа важна» до финальной миссии.",spoiler:false,labels:["Не подтверждено"],src:["pp1"],kind:"missable"},{text:"PowerPyx считает, что пропускаемого оружия Они нет, но в списке с форума PSNProfiles Мерцающая пустота (Flashing Void) и Тихая вода отмечены как пропускаемые — заберите все 7 до финальной миссии.",spoiler:false,labels:["Не подтверждено"],src:["psn2"],kind:"missable"},{text:"Кожа и закалённое железо выпадают редко: на полную прокачку мешочков и амулетов может уйти около трёх часов гринда — сундуки по миру и мини-боссы разломов (их выдаёт столб красного дыма у Зеркал Духов).",spoiler:false,labels:["Не подтверждено"],src:["st39","st36"],kind:"time"},{text:"Альтернатива гринду: железо и материалы продаются у памятника Ёримасы за красные души, ассортимент пополняется после крупных сюжетных этапов.",spoiler:false,labels:["Не подтверждено"],src:["psn2"],kind:"time"}],trophies:[16,18,19,23,32,33,34,35,36]},{id:"s3",title:"Этап 3: Финальная миссия и зачистка после титров",goal:"Пройти финальную миссию, затем вернуться к точке невозврата и закрыть последнюю заметку о гэмма и навыки. После титров открывается «Резня».",time:"≈3 ч",dlc:false,steps:[{text:"К финальной миссии должны оставаться только трофеи за неё, «Гэммолог», навыки, «Вооружён до зубов», «Истинный Онимуся» и реванши с боссами.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Перед финальным боссом возьмите расходники: амулет самопознания, стимулятор (Stimulant), сильные восстанавливающие средства (Heavy Restoratives), большой талисман защиты (Greater Defense Talisman) и большой талисман силы (Greater Might Talisman) — по два, сушёный ходзуки (Sun-Dried Hozuki) — один.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"После титров выберите «Продолжить» (Continue) в главном меню: игра вернёт вас к моменту перед финальной миссией независимо от сохранения, и всё оставшееся можно добрать в той же кампании.",spoiler:false,labels:["Подтверждено"],src:["pp1","psn2"]},{text:"Последнюю заметку о гэмма — о финальном боссе — можно забрать только после победы над ним, вернувшись к точке невозврата; с ней выпадет «Гэммолог».",spoiler:false,labels:["Подтверждено"],src:["st29","steam2"]},{text:"«Извилистый путь меча» по PowerPyx обычно открывается в финальной миссии; после титров докупите оставшиеся навыки ради «Мастера на все руки».",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"По большинству отзывов, камней Они и камней силы хватает на все навыки за одно прохождение, если найден скрытый сундук с синим камнем Они на первом уровне.",spoiler:false,labels:["Подтверждено"],src:["st2","psn2","psn4"]}],warnings:[{text:"Один игрок Stratege, собрав на «Экшене» всё, недосчитался трёх камней Они. Навыки переносятся в НГ+, поэтому «Мастера на все руки» в таком случае можно добрать там.",spoiler:false,labels:["Не подтверждено"],src:["st34"],kind:"other"},{text:"Перед стартом НГ+ оставьте сохранение первого прохождения в отдельном слоте, чтобы при необходимости вернуться к нему.",spoiler:false,labels:["Не подтверждено"],src:["psn2"],kind:"nonreturn"}],trophies:[13,14,24,28,29]},{id:"s4",title:"Этап 4: Новая игра+ на «Резне»",goal:"Пройти сюжет заново на сложности «Резня» и по пути прокачать снаряжение до максимума.",time:"≈20 ч",dlc:false,steps:[{text:"Начните НГ+ на сложности «Резня»: она доступна только на новом круге, а не в новой игре с нуля.",spoiler:false,labels:["Подтверждено"],src:["psn2","st30"]},{text:"В НГ+ переносятся навыки, мешочки с ходзуки и амулеты вместе с улучшениями.",spoiler:false,labels:["Подтверждено"],src:["st6","st34","pp1"]},{text:"Также переносятся заметки о гэмма, спасённые комаину и расходники.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam3"]},{text:"Улучшения меча, одежды и перчатки сбрасываются — на «Резне» снаряжение придётся качать заново.",spoiler:false,labels:["Подтверждено"],src:["st6","pp1","psn3"]},{text:"Все ресурсы «Резни» вкладывайте в меч, одежду и перчатку: душ здесь дают больше, а ассортимент торговца обновляется чаще, так что «Вооружён до зубов» удобно закрыть в этом прохождении.",spoiler:false,labels:["Не подтверждено"],src:["st6","st2"]},{text:"Если хватит материалов, «Вооружён до зубов» можно взять и раньше, перед финальной миссией первого прохождения: так предлагает PowerPyx.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Улучшения мешочков с ходзуки в НГ+ начинают действовать только с того места сюжета, где мешочки изначально открывались.",spoiler:false,labels:["Не подтверждено"],src:["psn3","psn2"]},{text:"Пропускайте ролики и диалоги и не торопитесь: с хорошо прокачанным снаряжением и пройденными побочными заданиями «Резня» идёт ровнее.",spoiler:false,labels:["Не подтверждено"],src:["psn3"]},{text:"Отражайте розовые неблокируемые атаки боссов: попадание даёт боссу сильное усиление.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"Если какой-то босс не даётся, потренируйте его атаки в реванше с боссом на лёгкой сложности.",spoiler:false,labels:["Не подтверждено"],src:["st2"]},{text:"Если «Народный герой» не выпал в первом прохождении, его можно получить и в НГ+.",spoiler:false,labels:["Подтверждено"],src:["st25","psn2"]}],warnings:[{text:"Полная прокачка снаряжения — один из самых долгих и нудных трофеев платины.",spoiler:false,labels:["Подтверждено"],src:["st2","psn3"],kind:"time"},{text:"Финальный босс на «Резне» — главный барьер платины: у игроков уходило от 1 до 14 часов попыток, на отдельных сюжетных боссов — по 1–1,5 часа.",spoiler:false,labels:["Не подтверждено"],src:["st2","st5"],kind:"time"},{text:"На «Резне» нет подсказок действий.",spoiler:false,labels:["Не подтверждено"],src:["pp1"],kind:"other"},{text:"Один игрок утверждает, что на «Резне» в какой-то момент боя игра перестаёт засчитывать парирование, отражение и уклонение; другие это оспаривают.",spoiler:false,labels:["Не подтверждено"],src:["st2"],kind:"bug"}],trophies:[25,31]},{id:"s5",title:"Этап 5: Реванши с боссами и платина",goal:"Победить всех боссов в режиме реванша на всех сложностях и получить платину.",time:"≈5–10 ч",dlc:false,steps:[{text:"После прохождения «Резни» вы получите меч Бисямон: с ним окно иссена такое же, как в состоянии пробуждения Они, и реванши становятся заметно проще.",spoiler:false,labels:["Подтверждено"],src:["st32","st30","psn2"]},{text:"Вход: Зал Эммы — позвонить в колокол — поговорить с Такамурой — реванш с боссом, затем выбрать босса и сложность.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Проходите каждого босса сразу на высшей сложности: победа засчитывает и все более низкие. Первая же победа даст «Второй раунд».",spoiler:false,labels:["Подтверждено"],src:["pp1","st32","psn2"]},{text:"В реванше нельзя пользоваться предметами, а шкалы силы Они и пробуждения начинаются пустыми.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"Реванши легче сюжетных боёв на «Резне»; финальный босс в реванше проще, чем в кампании.",spoiler:false,labels:["Не подтверждено"],src:["psn3"]},{text:"Альтернатива: проходить реванш с каждым боссом сразу после сюжетной победы, пока свежи его атаки (особенно Сасаки Ганрю).",spoiler:false,labels:["Подтверждено"],src:["st32","psn3"]}],warnings:[{text:"Высшая сложность реванша с боссом открывается победой над ним в сюжете на «Резне», поэтому «Жажду возмездия» не закрыть до прохождения «Резни».",spoiler:false,labels:["Не подтверждено"],src:["st32"],kind:"time"},{text:"Не полагайтесь только на меч Бисямон: условия реванша немного отличаются от сюжетных боёв.",spoiler:false,labels:["Не подтверждено"],src:["st2"],kind:"other"}],trophies:[26,27,1]}],trophies:[{num:1,en:"Peerless",ru:"Непобедимый",ruOfficial:false,desc:"Получите все призы.",descOfficial:false,type:"platinum",hidden:false,dlc:false,group:"",rarity:"6.1%",rarityLabel:"Very Rare",stage:"s5",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Нужно минимум два прохождения: первое на любой сложности (лучше «Экшен»), затем Новая игра+ (НГ+) на «Резне»; после этого остаются реванши с боссами.",spoiler:false,labels:["Подтверждено"],src:["st30","pp1","psn2"]},{text:"Пропускаемых трофеев нет: после финала игра возвращает вас к моменту перед финальной миссией, и всё оставшееся можно добрать оттуда.",spoiler:false,labels:["Подтверждено"],src:["pp1","psn2"]},{text:"Самые трудные трофеи — «Истинный Онимуся» и «Жажда возмездия»; оба упираются в умение делать иссен против боссов.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:2,en:"Onimusha Showdown",ru:"Схватка Онимусей",ruOfficial:false,desc:"Победите Сасаки Ганрю.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"91.0%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Парируйте атаки Ганрю и наказывайте его серией максимум из трёх лёгких ударов: так быстрее опустошается его шкала выносливости и открывается иссен. Не давайте ему простаивать — выносливость восстанавливается.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Во второй фазе (после того как он снимет шляпу) уворачивайтесь от пинков в прыжке, парируйте удары мечом и контрите захваты. Трофей выдаётся после ролика.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:3,en:"Get Stuffed",ru:"Выкуси!",ruOfficial:false,desc:"Победите Дайдару.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"89.1%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Бой с Дайдарой начинается в комнате с маркером после Зеркала Духов у территории святилища (Shrine Grounds). Круговой взмах и таран парируйте, от пинка и тяжёлого удара уворачивайтесь, бейте по ногам, чтобы сломать броню.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Быстро собирайте парящие в воздухе души: если не успеть, Дайдара поглотит их и станет быстрее и сильнее. Во второй фазе он входит в состояние пламени и использует захват — от него уворачивайтесь.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:4,en:"Twisted Fates",ru:"Исковерканные судьбы",ruOfficial:false,desc:"Победите Расё-гана.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"84.1%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Расё-ган встречается в Киото в конце миссии «Бойтесь своих желаний» (Be Careful What You Wish For), после сбора трёх статуй. Играйте агрессивно: его выносливость восстанавливается очень быстро.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"От захвата уходите уворотом в его сторону. Во второй фазе он с самого начала в состоянии пламени — уклоняйтесь от всего, кроме обычных взмахов мечом; цепь с крюком наказывает за дистанцию.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:5,en:"Howling Wind",ru:"Воющий ветер",ruOfficial:false,desc:"Победите Ифуу.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"78.7%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Ифуу ждёт в конце миссии «Кэннин-дзи во власти ветра» (Windswept Kennin-ji). Его отбрасывающее дыхание отражайте обратно в босса, иначе он успеет восстановить выносливость; от захвата уворачивайтесь в его сторону.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Во второй фазе выстрелите из лука в раздувающийся мешок за его головой: это оглушает Ифуу и сбивает его на землю.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:6,en:"Dokyo's Fixation",ru:"Любимец Докё",ruOfficial:false,desc:"Победите Большого Нуэ.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"74.0%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Большой Нуэ сражается в саду с прудом Оикэнива (Oikeniwa Pond Garden) в императорском дворце. Хвостом он прикрывает голову — эту защиту ломает сила Они. Красную атаку хвостом нельзя увернуть: её нужно парировать или блокировать.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"При выборе места для критической атаки целитесь в хвост: отрубленный хвост больше не атакует, а его можно бросить в босса. Если Нуэ поглотит слишком много душ, он впадает в ярость и бьёт молниями; во второй фазе ярость включена сразу.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Трофей выдаётся сразу после ролика по окончании боя, когда игра ставит новую сюжетную задачу.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:7,en:"Benkei: Out, but Not Down",ru:"Даже смерть не подкосила",ruOfficial:false,desc:"Победите Бэнкэя.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"69.7%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Бэнкэй — единственная цель миссии «Резня на мосту» (Bloodbath on the Bridge), подготовьтесь заранее. Урон ему проходит только от брейк-иссена, иссена и атак после точного рефлекс-уворота; блок и уворот не снимают его выносливость, а восстанавливается она быстро — будьте агрессивны.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Во время брейк-иссена бейте в голову: повторные удары в одну точку наносят больше урона. Парирование двойного удара глефами сверху в ярости снимает много выносливости.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Броню Бэнкэя удобно ломать оружием Они Сотрясатель земли (Earth Shaker).",spoiler:false,labels:["Не подтверждено"],src:["psn3"]}]},{num:8,en:"Crashing Lightning",ru:"Вспышка молнии",ruOfficial:false,desc:"Победите Бурая.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"67.3%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Бурай встречается в том же храме, что и Ифуу, в миссии «Буря в храме» (A Tempest at the Temple). Он ставит два ряда сфер: сначала фиолетовым лучом бьёт передний ряд, затем задний — уходите с линии луча. От X-образных сфер сверху спасает уворот с концентрацией (Focus Evade), выпады парируются.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Не бейте Бурая, пока он стоит в позе: он телепортируется за спину и атакует выпадом. Не жадничайте или будьте готовы его отразить.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:9,en:"Wide Awake",ru:"Полное пробуждение",ruOfficial:false,desc:"Победите Сютэна Додзи.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"61.2%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Сютэн Додзи — в конце миссии «Демон на горе» (The Demon on the Mount). Когда он делает вдох, стреляйте в него из лука, чтобы прервать неуклоняемую атаку; во второй фазе так же стреляйте в раздувающуюся голову, чтобы он не залил всё огнём.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"До ролика в середине боя тратьте как можно меньше лечения: смерть после ролика возвращает к началу второй фазы, но с теми расходниками, что были на конец первой.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Вторую фазу вы начинаете в форме Они: используйте её для иссенов, а оружие Они — в конце запаса силы.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Игрок, торопившийся на «Резне», пришёл к Сютэну Додзи со снаряжением 2-го уровня и застрял; после улучшения до 4-го уровня бой стал заметно легче.",spoiler:false,labels:["Не подтверждено"],src:["psn3"]}]},{num:10,en:"The Perfect Storm",ru:"Идеальный шторм",ruOfficial:false,desc:"Победите Ифуу и Бурая.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"58.5%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Пока живы оба брата, не используйте захват цели: второго брата из-за него часто не видно.",spoiler:false,labels:["Не подтверждено"],src:["st30","st2"]},{text:"Порядок убийства неважен: у каждого нужно снять по две полоски здоровья. Играйте от защиты и наказывайте только после их серий; следите, чтобы второй не атаковал из-за края экрана. Отражение их совместного рывка бьёт по выносливости, иногда они даже попадают друг по другу.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Во второй фазе стреляйте в Ифуу, когда он висит в воздухе над Бураем, но только если вы не стоите на линии лучей от сфер.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Игрокам на «Резне» помогало сначала добить Ифуу (пока Бурай атакует, Ифуу просто стоит) и держаться у самого края арены: там братья реже пикируют с неба.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"Главная угроза на «Резне» — неблокируемая атака, когда братья летят на облаке; её нужно поймать вовремя.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]}]},{num:11,en:"We Done Here?",ru:"Мы закончили?",ruOfficial:false,desc:"Победите Сасаки Ганрю в Арасияме.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"55.5%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"На «Резне» повторный бой с Ганрю — один из самых трудных в игре.",spoiler:false,labels:["Подтверждено"],src:["st2","psn3"]},{text:"Лучшие расходники берегите для этого боя.",spoiler:false,labels:["Не подтверждено"],src:["psn3"]},{text:"У Ганрю минимум три атаки, которые стабильно и легко наказываются иссеном — выучите их.",spoiler:false,labels:["Не подтверждено"],src:["st2"]},{text:"Осторожнее с захватами с дистанции: окно контрзахвата неровное, ориентируйтесь на анимацию входа в захват, а не на начало атаки.",spoiler:false,labels:["Не подтверждено"],src:["st30"]},{text:"Бой проходит у Зеркала Духов на мосту Тогэцу-кё в Арасияме. Выгоднее играть от защиты: у Ганрю растянутые тайминги взмахов. На захват демона отвечайте уворотом в его сторону; силу Они применяйте пораньше — к концу боя её хватит ещё раз.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Во второй фазе после магического меча у него появляются неуклоняемые атаки: их нужно парировать или пробивать иссеном, блок бесполезен — он сильно бьёт по выносливости.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:12,en:"End This Madness",ru:"Конец безумию",ruOfficial:false,desc:"Победите Докё.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"54.3%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Бой с Докё — погоня с особой механикой: уворачивайтесь от снарядов, отражайте волчок обратно, стреляйте в растущую маску, а от куби-акари (Kubi Akari) бегите к последнему появившемуся.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Когда Докё разделяется на двойников, включите зрение Они: настоящий окружён золотой аурой — стреляйте в него из лука.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Против гигантской сферы в конце спрячьтесь за камнем между собой и Докё; обломок камня можно бросить в него. Во второй фазе используйте форму Онимуся.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Против Докё помогают иссен на дистанции и копьё Они Мерцающая пустота (Flashing Void) с большой дальностью.",spoiler:false,labels:["Не подтверждено"],src:["psn3"]}]},{num:13,en:"Baited by Benkei",ru:"Клюнул на Бэнкэя",ruOfficial:false,desc:"Победите Бэнкэя в Рэндайно.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"51.7%",rarityLabel:"Common",stage:"s3",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Бой начинается сразу после старта финальной миссии «Схватка в Рэндайно» (The Clash at Rendaino) — подготовьтесь до входа.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Во второй фазе выносливость Бэнкэя восстанавливается очень быстро: время от времени стреляйте ему в голову из лука, но не ценой полученного урона. Шкалу Они тратьте в начале боя — до конца успеете накопить и применить её ещё раз.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Новые атаки: брошенные деревянные дротики и топоры можно отразить; молот после броска взрывает землю — уворачивайтесь дважды; когда он ставит пушку на плечо, выстрелите в её жерло из лука.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:14,en:"Truly, Thank You",ru:"Правда, спасибо",ruOfficial:false,desc:"Победите Минамото-но Ёсицунэ.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"46.4%",rarityLabel:"Rare",stage:"s3",missable:false,online:false,buggy:false,grind:false,tips:[{text:"В третьей фазе Ёсицунэ получает урон только пока вы сами в пробуждении Они: стройте бой на иссенах и рефлекс-комбо в этой форме.",spoiler:false,labels:["Подтверждено"],src:["st30","pp1","psn2","steam1"]},{text:"Не давайте ему схватить вас: захватом он вытягивает души и становится сильнее.",spoiler:false,labels:["Подтверждено"],src:["st2","pp1"]},{text:"Если он всё же схватил вас в первой фазе, лучше перезапустить бой: дальше будет значительно сложнее.",spoiler:false,labels:["Не подтверждено"],src:["st2"]},{text:"Для каждой фазы выучите атаки с удобным окном под иссен (например, удар о землю во второй фазе): пройти бой только на парированиях и обычных атаках долго и рискованно.",spoiler:false,labels:["Подтверждено"],src:["st2","psn3"]},{text:"При критической атаке (после сбития выносливости) выбирайте фиолетовую зону: она восполняет здоровье, шкалу силы Они и пробуждения. Это относится и к другим боссам, включая мини-боссов.",spoiler:false,labels:["Подтверждено"],src:["st30","pp1"]},{text:"Круговую атаку, которой он собирает души, наказывайте в самом её конце (по Stratege — иссеном примерно через 2 секунды после реплики «приготовься», по форуму PSNProfiles — отражением).",spoiler:false,labels:["Подтверждено"],src:["st30","psn2"]},{text:"Самое опасное во второй фазе — вертикальный двойной удар с прыжка, которым он её открывает. Броню разбивайте силой колонн как можно раньше, но только пока он в коротком оглушении (стоит спиной или на колене).",spoiler:false,labels:["Не подтверждено"],src:["st30"]},{text:"Вторая фаза начинается с его падения в землю — сразу отбегайте как можно дальше; в этой фазе PowerPyx советует опираться на отражение, а не на иссен.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Против вспышки после двух дальних розовых ударов мечом: уворот, уворот, затем блок — следите за таймингом, перед ударом он телепортируется. Стрелы можно отбивать в него.",spoiler:false,labels:["Не подтверждено"],src:["st30"]},{text:"Захват во второй фазе запаздывает (перед ним он телепортируется) и часто застаёт врасплох.",spoiler:false,labels:["Подтверждено"],src:["st30","psn3"]},{text:"Чтобы поймать этот захват, ориентируйтесь не на анимацию телепорта, а на взмах рукой.",spoiler:false,labels:["Не подтверждено"],src:["st30"]},{text:"Если не успеваете парировать при всасывании душ, не тратьте на это способность оружия Они: бейте его молотами, пока он готовится к удару. Во второй и третьей фазе можно взять Тихую воду: с ней набираются фиолетовые души и проще уйти от круговой атаки.",spoiler:false,labels:["Не подтверждено"],src:["st30"]},{text:"Заранее экипируйте расходники: амулет самопознания, стимулятор (Stimulant), сушёный ходзуки (Sun-Dried Hozuki), большой талисман защиты и силы, сильные восстанавливающие средства — по два каждого (сушёного ходзуки один). Не тратьте их до второй половины второй фазы.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"В первой фазе удар катаной о плечо — сигнал к парированию: следом идёт молниеносный выпад. Идеальный уворот или иссен сбивают его с ног.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Заполнив шкалу пробуждения, сразу превращайтесь и не используйте добивание до самого конца шкалы.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"На «Резне» некоторым проще парировать все атаки и дать ему выдохнуться, чем идти в нападение.",spoiler:false,labels:["Не подтверждено"],src:["psn3"]}]},{num:15,en:"Mystery Solved",ru:"Дело раскрыто",ruOfficial:false,desc:"Раскройте свою первую тайну Киото.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"72.6%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Тайны Киото отмечены на карте значком бабочки; первая встречается по ходу сюжета.",spoiler:false,labels:["Только ПК"],src:["steam2"]}]},{num:16,en:"Demystified",ru:"Полное разоблачение",ruOfficial:false,desc:"Раскройте все тайны Киото.",descOfficial:false,type:"silver",hidden:false,dlc:false,group:"",rarity:"49.8%",rarityLabel:"Rare",stage:"s2",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Всего 8 тайн Киото.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam2"]},{text:"Тайны не исчезают: после финала можно продолжить игру с момента перед финальной миссией и закрыть оставшиеся.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam1"]},{text:"Прогресс тайн Киото не переносится в НГ+ — закройте все в первом прохождении.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:17,en:"Life-Saver",ru:"Спаситель",ruOfficial:false,desc:"Пройдите свою первую Случайную встречу.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"75.3%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Случайные встречи отмечены на карте значком дневника и открываются по мере прохождения сюжета.",spoiler:false,labels:["Только ПК"],src:["steam2","steam3"]}]},{num:18,en:"No Job Too Small",ru:"Всякая работа важна",ruOfficial:false,desc:"Пройдите все Случайные встречи.",descOfficial:false,type:"silver",hidden:false,dlc:false,group:"",rarity:"39.4%",rarityLabel:"Rare",stage:"s2",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Всего 18 Случайных встреч.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam2"]},{text:"Пропускаемых встреч нет: все остаются доступны на карте Киото и после финала (игра возвращает вас перед финальной миссией).",spoiler:false,labels:["Подтверждено"],src:["pp1","steam4"]},{text:"Прогресс Случайных встреч не переносится в НГ+ — закройте их в первом прохождении.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:19,en:"Serves You Right",ru:"Поделом тебе",ruOfficial:false,desc:"Победите Бякуэ в храме Киёмидзу-дэра.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"64.3%",rarityLabel:"Common",stage:"s2",missable:false,online:false,buggy:false,grind:false,tips:[{text:"После получения силы колонн и открытия закрытого прохода в храме Киёмидзу-дэра Бякуэ при первом заходе может не оказаться; автор нашёл его во второй раз, уже после сюжетного уровня с Нуэ. Что запускает его появление — неизвестно.",spoiler:false,labels:["Не подтверждено"],src:["st24"]},{text:"Бякуэ находится за стеной Они к северу от Зеркала Духов у ворот Нио-мон; вы встретите его в Случайной встрече «Меткий лучник: храм Киёмидзу-дэра» (Ace Archer: Kiyomizu-dera Temple). У него одна полоска здоровья — хватает двух брейк-иссенов.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:20,en:"Citizen Savior",ru:"Народный герой",ruOfficial:false,desc:"Спасите 30 горожан от мародерствующих гэмма.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"23.7%",rarityLabel:"Rare",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Трофей можно добрать в НГ+.",spoiler:false,labels:["Подтверждено"],src:["st25","psn2"]},{text:"По словам игрока форума, прогресс сохраняется: в НГ+ трофей выпал у него после первых же трёх спасений.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"Нужно победить напавших гэмма и затем обязательно поговорить со спасённым горожанином — без разговора спасение не засчитывается. Нападения случайны по всему Киото.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Один игрок пишет, что после очистки города от красного тумана горожане перестают появляться; другой — что они появлялись вплоть до точки невозврата.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]}]},{num:21,en:"Selfish Selflessness",ru:"Эгоистичный альтруизм",ruOfficial:false,desc:"Спасите торговца, на которого напали гэмма.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"62.8%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Нападение на торговца происходит случайно.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam3"]},{text:"Почти наверняка оно случится раньше, чем вы спасёте 30 горожан для «Народного героя».",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:22,en:"No Dog Left Behind",ru:"Дай лапу",ruOfficial:false,desc:"Спасите своего первого комаину.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"72.6%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Карта показывает значки всех комаину, которых можно освободить на текущий момент.",spoiler:false,labels:["Только ПК"],src:["steam3"]}]},{num:23,en:"For the Love of Dog",ru:"Любитель собак",ruOfficial:false,desc:"Спасите всех комаину.",descOfficial:false,type:"silver",hidden:false,dlc:false,group:"",rarity:"37.9%",rarityLabel:"Rare",stage:"s2",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Спасённые комаину переносятся в НГ+.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam3"]},{text:"Всего 36 комаину.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Места заточения комаину постоянны и не исчезают — их можно добирать позже. Ненайденных подскажет вкладка «Любопытные случаи» (Curious Cases).",spoiler:false,labels:["Только ПК"],src:["steam4","steam2"]}]},{num:24,en:"Genma-ologist",ru:"Гэммолог",ruOfficial:false,desc:"Соберите все заметки о гэмма.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"11.8%",rarityLabel:"Very Rare",stage:"s3",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Заметку о финальном боссе можно забрать только после победы над ним, когда игра возвращает вас к точке невозврата.",spoiler:false,labels:["Подтверждено"],src:["st29","steam2"]},{text:"Остальные 22 заметки собираются до точки невозврата.",spoiler:false,labels:["Только ПК"],src:["steam2"]},{text:"Всего 23 заметки о гэмма.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam3"]},{text:"Собранные заметки переносятся в НГ+.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam3"]},{text:"Заметки находят зрением Они в определённых местах; удобно собрать их за один заход при финальной зачистке карты.",spoiler:false,labels:["Только ПК"],src:["steam2","steam4"]}]},{num:25,en:"True Onimusha",ru:"Истинный Онимуся",ruOfficial:false,desc:"Пройдите игру на уровне сложности «Резня».",descOfficial:false,type:"gold",hidden:true,dlc:false,group:"",rarity:"8.1%",rarityLabel:"Very Rare",stage:"s4",missable:false,online:false,buggy:false,grind:false,tips:[{text:"«Резня» открывается после первого прохождения и выбирается в Новой игре+.",spoiler:false,labels:["Подтверждено"],src:["st30","pp1","psn2","steam2"]},{text:"Первое прохождение лучше сделать на «Экшене» — это подготовка к «Резне».",spoiler:false,labels:["Подтверждено"],src:["st2","pp1"]},{text:"Учите иссен как можно раньше: запомните две-три атаки каждого босса, на которые будете отвечать иссеном, а в остальном деритесь как обычно.",spoiler:false,labels:["Не подтверждено"],src:["st30","st2"]},{text:"Если иссен не получается, опирайтесь на «Отражение» (L1 + X): оно хорошо опустошает выносливость боссов — бои дольше, но безопаснее.",spoiler:false,labels:["Подтверждено"],src:["st30","psn2"]},{text:"Не пренебрегайте улучшением снаряжения на «Резне»: без него урона и здоровья не хватает и боссы затягиваются. Обыскивайте Киото и открывайте сундуки.",spoiler:false,labels:["Подтверждено"],src:["st30","psn3"]},{text:"Не тратьте в первом прохождении редкие предметы вроде зеркала воскрешения (Mirror of Revival): они переносятся в НГ+ и пригодятся на «Резне».",spoiler:false,labels:["Подтверждено"],src:["pp1","psn3"]},{text:"К бою с близнецами (Ифуу и Бураем) приходите с прокачкой 5/5/5.",spoiler:false,labels:["Не подтверждено"],src:["st30"]},{text:"Если какой-то босс на «Резне» не даётся, запускайте его в арене реванша на лёгкой сложности и тренируйте его атаки.",spoiler:false,labels:["Не подтверждено"],src:["st2"]},{text:"Не напирайте на сильных врагов и боссов, если не уверены в контратаке: делайте паузы, а в их стойке блока пробивайте защиту силой колонн.",spoiler:false,labels:["Не подтверждено"],src:["st30"]},{text:"Лучшие амулеты для «Резни» — +10% к урону иссена, ускорение шкалы пробуждения и рефлексов; расходники на урон не жалейте.",spoiler:false,labels:["Не подтверждено"],src:["st30"]},{text:"На «Резне» нет подсказок действий: будет проще, если и «Экшен» пройти с ними отключёнными.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"На «Резне» любой захват босса убивает с одного удара, если не прокачано максимальное здоровье.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"Флейта огненных птиц прерывает большинство атак, в том числе боссов: заряд можно приберечь для неудобной атаки.",spoiler:false,labels:["Не подтверждено"],src:["psn3"]},{text:"Перед боссом можно у святилища поставить последний мешочек, использовать его для восполнения шкал Они и пробуждения и вернуть обычные мешочки. При перезапуске боя все предметы возвращаются.",spoiler:false,labels:["Не подтверждено"],src:["psn2","psn3"]}]},{num:26,en:"Second Helping",ru:"Второй раунд",ruOfficial:false,desc:"Победите противника в реванше с боссом.",descOfficial:false,type:"bronze",hidden:true,dlc:false,group:"",rarity:"65.8%",rarityLabel:"Common",stage:"s5",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Реванш с боссом доступен на тренировочной площадке, которая открывается по сюжету в миссии «Ученик Они» (The Oni's Apprentice): в Зале Эммы (Emma's Hall) позвоните в колокол и поговорите с Такамурой.",spoiler:false,labels:["Подтверждено"],src:["st32","pp1"]},{text:"Для трофея достаточно победить любого босса на любой сложности.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:27,en:"Glutton for Punishment",ru:"Жажда возмездия",ruOfficial:false,desc:"Победите всех противников в реванше с боссом на всех уровнях сложности.",descOfficial:false,type:"gold",hidden:true,dlc:false,group:"",rarity:"7.4%",rarityLabel:"Very Rare",stage:"s5",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Победа над боссом на высшей доступной сложности засчитывает и все более низкие — проходите реванши сразу на «Резне».",spoiler:false,labels:["Подтверждено"],src:["st32","pp1","psn2","steam2"]},{text:"За прохождение игры на «Резне» дают меч Бисямон: с ним окно иссена такое же, как в форме Они, и реванши проходятся намного легче.",spoiler:false,labels:["Подтверждено"],src:["st32","pp1","psn2"]},{text:"Режим не закончить, пока игра не пройдена на «Резне»: каждый побеждённый в сюжете босс открывает для себя очередную сложность реванша.",spoiler:false,labels:["Не подтверждено"],src:["st32"]},{text:"Альтернатива: проходите реванш, как только босс стал доступен, пока его атаки свежи в памяти (особенно Сасаки Ганрю и Ёсицунэ).",spoiler:false,labels:["Подтверждено"],src:["st32","psn3"]},{text:"В реванше нельзя использовать расходники, а шкалы Они и пробуждения стартуют пустыми.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"Не полагайтесь только на меч Бисямон: условия в реванше немного отличаются от сюжетных.",spoiler:false,labels:["Не подтверждено"],src:["st2"]},{text:"По отзывам, реванши легче «Резни» в кампании, а финальный босс в реванше проще, чем в сюжете; с Бисямоном иссеном перехватывается почти любая его атака.",spoiler:false,labels:["Не подтверждено"],src:["psn3"]}]},{num:28,en:"The Winding Way of the Sword",ru:"Извилистый путь меча",ruOfficial:false,desc:"Получите и улучшите все базовые или все особые навыки.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"27.3%",rarityLabel:"Rare",stage:"s3",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Часть навыков (нижняя половина дерева) открывается только после прохождения порталов Они на карте Киото; порталы появляются по порядку после сюжетных миссий, полный набор — после третьего портала.",spoiler:false,labels:["Подтверждено"],src:["pp1","psn2"]},{text:"Порталы легко пропустить: один игрок не заметил портал на клочке земли к югу от театра кабуки — пользуйтесь зрением Они.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]}]},{num:29,en:"Well-Rounded",ru:"Мастер на все руки",ruOfficial:false,desc:"Получите и улучшите все навыки — и базовые, и особые.",descOfficial:false,type:"silver",hidden:false,dlc:false,group:"",rarity:"18.1%",rarityLabel:"Rare",stage:"s3",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Прокачка навыков переносится в НГ+, поэтому, если в первом прохождении не хватит камней, не переживайте — на «Резне» их будет в избытке.",spoiler:false,labels:["Подтверждено"],src:["st34","pp1"]},{text:"Один автор на «Экшене» собрал буквально всё, и ему всё равно не хватило трёх камней Они.",spoiler:false,labels:["Не подтверждено"],src:["st34"]},{text:"Другие игроки прокачали все навыки за одно прохождение: камней Они и камней силы хватает.",spoiler:false,labels:["Подтверждено"],src:["st2","psn2"]},{text:"Синий камень Они легко пропустить: сундук в северо-восточном углу зоны внутри портала аванпоста на первом уровне (туда нужен бег по стенам, на карте зона не видна). В НГ+ синий камень лежит за домом сохранения.",spoiler:false,labels:["Не подтверждено"],src:["psn4"]},{text:"Навыки улучшаются у Зеркала Духов за камни силы (их 54) и камни Они (их 55). «Мощь Они: разрушение» (Oni Strength: Destroy) открывается после победы над Расё-ганом, «Ловкость Они: бег по стенам» (Oni Agility: Wall Run) — в миссии «Корни всего зла» (The Roots of All Evil).",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"4 камня силы дают за тайны Киото и 11 — за Случайные встречи.",spoiler:false,labels:["Только ПК"],src:["steam2"]}]},{num:30,en:"Looking Sharp",ru:"Сногсшибательно",ruOfficial:false,desc:"Улучшите снаряжение в первый раз.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"87.1%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Улучшение снаряжения у Зеркала Духов открывается автоматически в миссии «Ученик Они» (The Oni's Apprentice).",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:31,en:"Dressed to Kill",ru:"Вооружён до зубов",ruOfficial:false,desc:"Улучшите всё снаряжение до максимального уровня.",descOfficial:false,type:"silver",hidden:false,dlc:false,group:"",rarity:"17.6%",rarityLabel:"Rare",stage:"s4",missable:false,online:false,buggy:false,grind:true,tips:[{text:"Улучшения меча, одежды и перчатки не переносятся в НГ+ — на «Резне» снаряжение придётся качать заново.",spoiler:false,labels:["Подтверждено"],src:["st36","pp1","psn3","steam2"]},{text:"Материалы можно фармить: сундуки по миру наполняются снова, а разломы (в том числе с мини-боссами, с которых падают материалы для перчатки) появляются снова и снова.",spoiler:false,labels:["Подтверждено"],src:["st2","psn2"]},{text:"Недостающие материалы докупайте у памятника Ёримасы (Yorimasa's Monument) за красные души: ассортимент обновляется после крупных сюжетных этапов.",spoiler:false,labels:["Подтверждено"],src:["st2","pp1","psn2"]},{text:"Тонкого шёлка (Fine Silk Cloth) и тамахаганэ в игре по 25 штук.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam2"]},{text:"Разломы появляются после взаимодействия с Зеркалом Духов в случайном порядке, но в фиксированных точках карты — ищите красный дым, поднимающийся вверх; в каждой точке всегда один и тот же набор врагов.",spoiler:false,labels:["Не подтверждено"],src:["st36"]},{text:"Рога Дохацу-Тэна (3 за бой) фармятся так: сохранитесь у Зеркала Духов возле моста, где был бой с Бэнкэем, и повернитесь направо — если виден дым, бегите на мост (50/50 Бякуэ или Дохацу-Тэн); если нет, повернитесь налево и пробегите вперёд — дым там всегда означает Дохацу-Тэна; если дыма нигде нет, загрузите сохранение.",spoiler:false,labels:["Не подтверждено"],src:["st36"]},{text:"Некоторым не хватало материалов для перчатки даже после всех сундуков, разломов и покупок; другие прокачали всё, закрывая разломы и один раз переиграв финального босса.",spoiler:false,labels:["Не подтверждено"],src:["st36","st2"]},{text:"На «Резне» душ дают больше, а товары у торговца обновляются чаще — повторная прокачка идёт быстрее.",spoiler:false,labels:["Не подтверждено"],src:["st2"]}]},{num:32,en:"Oni Armory",ru:"Арсенал Они",ruOfficial:false,desc:"Получите всё оружие Они.",descOfficial:false,type:"silver",hidden:false,dlc:false,group:"",rarity:"44.3%",rarityLabel:"Rare",stage:"s2",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Всего 7 видов оружия Они: два выдаются по сюжету, остальные лежат в определённых местах.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam3","steam1"]},{text:"Копьё Мерцающая пустота (Flashing Void) находится на горе Оэ.",spoiler:false,labels:["Подтверждено"],src:["psn2","steam2"]},{text:"Точнее — сразу за лифтом, ведущим к главному замку.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"Меч Тихая вода, по одной версии, лежит сразу за чекпоинтом «Болото 1» в Ариме.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"По другой версии, Тихая вода находится в Арасияме.",spoiler:false,labels:["Только ПК"],src:["steam2"]},{text:"Лук Они выдаётся по сюжету; Ветрохлёст (Wind-Whipper) — за первую тренировку с Такамурой; Два небожителя (Two Heavenly Beings) — в сундуке в Киёмидзу-дэра возле второго «паучка»; Сотрясатель земли (Earth Shaker) — в сундуке на 4-м уровне подземной лаборатории перед сюжетным лифтом.",spoiler:false,labels:["Только ПК"],src:["steam2"]}]},{num:33,en:"Health Is Wealth",ru:"Здоровье дороже золота",ruOfficial:false,desc:"Улучшите мешочек с ходзуки до максимального уровня.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"54.3%",rarityLabel:"Common",stage:"s2",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Улучшение мешочков начинается с задания «Починка мешочка» (Patching up the Pouch) после разговора с Окуни. Для 3-го уровня каждому мешочку нужен 1 ажурный ходзуки (Lace Hozuki).",spoiler:false,labels:["Только ПК"],src:["steam1","steam2","steam4"]}]},{num:34,en:"Medical Marvel",ru:"Чудо медицины",ruOfficial:false,desc:"Улучшите все мешочки с ходзуки до максимального уровня.",descOfficial:false,type:"silver",hidden:false,dlc:false,group:"",rarity:"15.8%",rarityLabel:"Rare",stage:"s2",missable:false,online:false,buggy:false,grind:true,tips:[{text:"Накопив материалы, сделайте ручное сохранение, прокачайте все мешочки ради трофея, затем загрузитесь и потратьте материалы на снаряжение.",spoiler:false,labels:["Подтверждено"],src:["st36","pp1","steam2"]},{text:"Мешочки и их улучшения переносятся в НГ+, поэтому в первом прохождении в приоритете мешочки и амулеты.",spoiler:false,labels:["Подтверждено"],src:["st6","pp1"]},{text:"Чтобы в одном прохождении взять и этот трофей, и полную прокачку снаряжения, придётся до точки невозврата гриндить кожу и закалённое железо: в сундуках они редкие, и даже после скупки магазина и всех побочных заданий их не хватает. У автора ушло около трёх часов, включая материалы для прокачки всех амулетов.",spoiler:false,labels:["Не подтверждено"],src:["st39"]},{text:"Всего 9 мешочков с ходзуки.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"В НГ+ улучшения мешочков начинают действовать только с того момента сюжета, где они изначально открывались.",spoiler:false,labels:["Не подтверждено"],src:["psn3"]},{text:"Все мешочки можно собрать только после очищения трёх районов Киото.",spoiler:false,labels:["Только ПК"],src:["steam2"]}]},{num:35,en:"A Real Charmer",ru:"Божественная защита",ruOfficial:false,desc:"Улучшите амулет до максимального уровня.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"70.1%",rarityLabel:"Common",stage:"s2",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Улучшение амулетов открывается после задания «Сцена в Киёмидзу готова» (The Stage is Set at Kiyomizu); улучшают их в святилище Зала Эммы действием «Сделать подношение» (Make Offering).",spoiler:false,labels:["Только ПК"],src:["steam1","steam4"]}]},{num:36,en:"Charmed Life",ru:"Как зачарованный",ruOfficial:false,desc:"Улучшите все амулеты до максимального уровня.",descOfficial:false,type:"silver",hidden:false,dlc:false,group:"",rarity:"12.9%",rarityLabel:"Very Rare",stage:"s2",missable:false,online:false,buggy:false,grind:true,tips:[{text:"Для трофея нужны 15 амулетов.",spoiler:false,labels:["Подтверждено"],src:["pp1","psn2","steam2"]},{text:"Амулеты за предзаказ в счёт не идут.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"На полную прокачку всех амулетов нужно около 150 000 благосклонности (Favor) и 135 000 красных душ.",spoiler:false,labels:["Подтверждено"],src:["pp1","steam2"]},{text:"Улучшения амулетов переносятся в НГ+ — прокачайте их в первом прохождении, а не гриндите на «Резне».",spoiler:false,labels:["Подтверждено"],src:["st6","pp1","psn2","steam2"]},{text:"Подбирайте все предметы, которые обмениваются на благосклонность; недостающие продаются у памятника Ёримасы (Yorimasa's Monument). Сохранитесь вручную при 150 000 благосклонности и улучшайте амулеты с этого сохранения.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Один амулет дают по сюжету, 6 — за тайны Киото, 8 — за Случайные встречи.",spoiler:false,labels:["Только ПК"],src:["steam2"]}]},{num:37,en:"Burning Blade",ru:"Пылающий клинок",ruOfficial:false,desc:"Победите 50 врагов, находясь в состоянии пламени.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"65.7%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Состояние пламени открывается рано в ветке навыков брейк-иссена: парирования заполняют шкалу слева от шкалы оружия Они, и при её заполнении включается состояние.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Если к концу игры не хватает, фармите упражнение на состояние пламени на тренировочной площадке в Зале Эммы, но там выходит лишь по одному врагу.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:38,en:"Stop Motion",ru:"Остановись, мгновенье",ruOfficial:false,desc:"Выполните 50 рефлекс-комбо.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"50.4%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Рефлекс-комбо — контратака после точного рефлекс-уворота; засчитывается каждое выполнение, даже если враг не умер. Добрать можно в упражнении на рефлекс-комбо на тренировочной площадке.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:39,en:"Wielder of Oni Armaments",ru:"Искусство оружия Они",ruOfficial:false,desc:"Победите 100 врагов с помощью оружия Они.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"29.8%",rarityLabel:"Rare",stage:"s1",missable:false,online:false,buggy:false,grind:true,tips:[{text:"Трофей можно набить в упражнениях на тренировочной площадке.",spoiler:false,labels:["Подтверждено"],src:["st44","pp1"]},{text:"Дольше всего ждать заполнения шкалы оружия Они; для массовых убийств одним ударом советуют Ветрохлёст (Wind-Whipper).",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:40,en:"Oni's Oni",ru:"Свой среди Они",ruOfficial:false,desc:"Победите 50 врагов, находясь в состоянии пробуждения Они.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"20.4%",rarityLabel:"Rare",stage:"s1",missable:false,online:false,buggy:false,grind:true,tips:[{text:"Трофей можно набить в упражнении на пробуждение Они на тренировочной площадке.",spoiler:false,labels:["Подтверждено"],src:["st45","pp1"]},{text:"Пробуждение Они включается на L3 + R3.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"По словам игрока форума, счётчик убийств в пробуждении Они не переносится в НГ+ — добирайте в первом прохождении.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]}]},{num:41,en:"Brutalist",ru:"Бруталист",ruOfficial:false,desc:"Нанесите 50 атак иссен.",descOfficial:false,type:"silver",hidden:false,dlc:false,group:"",rarity:"49.9%",rarityLabel:"Rare",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"В пробуждении Они окно иссена гораздо шире: играйте от реакции, провоцируйте базовые атаки и контрите.",spoiler:false,labels:["Подтверждено"],src:["st32","pp1","psn2"]},{text:"Если не получается, повторяйте упражнение «Иссен» на тренировочной площадке, пока трофей не выпадет.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"С купленным улучшением контратаки на стрелы нажмите квадрат прямо перед попаданием стрелы — Мусаси выполнит иссен с телепортом к лучнику на любом расстоянии.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]},{text:"Игроки на двух сайтах пересказывают видео, по которым окно иссена зависит от частоты кадров: на 30 FPS попасть проще. Сами они это не проверяли.",spoiler:false,labels:["Подтверждено"],src:["st2","psn2"]}]},{num:42,en:"Flow State",ru:"В состоянии потока",ruOfficial:false,desc:"Победите 50 врагов с помощью цепи иссен.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"13.5%",rarityLabel:"Very Rare",stage:"s1",missable:false,online:false,buggy:false,grind:true,tips:[{text:"После иссена, пока на экране светится вспышка, снова нажмите атаку — так получится цепь иссен; слишком раннее нажатие обрывает цепь. Засчитывается цепь от двух врагов.",spoiler:false,labels:["Подтверждено"],src:["st47","pp1"]},{text:"Проще всего набить в упражнении «Цепь иссен» на тренировочной площадке.",spoiler:false,labels:["Подтверждено"],src:["st47","pp1"]},{text:"Для ускорения прокачайте базовый навык «Цепь иссен: длина цепи»; если трудно поймать тайминг, наденьте амулет самопознания.",spoiler:false,labels:["Не подтверждено"],src:["st47"]},{text:"Удобное место: Киото, Улица Годзё - Запад. Встаньте лицом к точке отдыха, поверните налево и идите прямо — во дворике появляются 2 или 4 врага (иногда никого). Убейте их, отдохните и повторите.",spoiler:false,labels:["Не подтверждено"],src:["st47"]}]},{num:43,en:"Silent Violence",ru:"Молчаливое насилие",ruOfficial:false,desc:"Скрытно убейте 20 врагов.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"49.7%",rarityLabel:"Rare",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Подкрадитесь к врагу сзади и убейте по подсказке; убийство не засчитается, если вас заметили. Бег выдаёт вас, пока не открыт навык «Скрытность на бегу» (Stealth While Running).",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:44,en:"Pinch Hitter",ru:"Ловкий удар",ruOfficial:false,desc:"Отразите 50 снарядов.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"39.2%",rarityLabel:"Rare",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Нужен навык «Отражение»: с ним снаряд летит обратно во врага, а не в сторону.",spoiler:false,labels:["Подтверждено"],src:["st49","pp1"]},{text:"Управление по Stratege: удерживайте блок (L1) и нажмите крест при подлёте снаряда.",spoiler:false,labels:["Не подтверждено"],src:["st49"]},{text:"По PowerPyx: удерживая направление вперёд, нажмите блок в момент парирования. Засчитываются и стрелы, и магические снаряды.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Физические снаряды можно отбить, а энергетические волны (похожи на взмахи меча) нужно уклонять.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]}]},{num:45,en:"Deadeye",ru:"Меткий глаз",ruOfficial:false,desc:"Попадите 100 раз в голову из лука.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"54.0%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Проще всего стрелять в лучников и летающие головы; цельтесь чуть выше головы гэмма, чтобы попадание не засчиталось в тело. Отражённая в лучника стрела снимает его выносливость и оставляет живым для лёгкого выстрела в голову.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:46,en:"Winning Is What Matters",ru:"Победа важнее всего",ruOfficial:false,desc:"Нанесите 50 атак объектами окружения.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"71.7%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Подходят бочки, доски, повозки и взрывные бочки, подожжённые выстрелом из лука; считается само касание врага предметом, убивать не обязательно.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:47,en:"Untouchable",ru:"Неприкосновенный",ruOfficial:false,desc:"Выполните 50 контрзахватов.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"62.2%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Захват помечается эффектом молнии на руке или ноге врага: уворачивайтесь в его сторону, чтобы выполнить контрзахват.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:48,en:"Coming Through!",ru:"Лучшая защита — это нападение",ruOfficial:false,desc:"Пробейте защиту противника 50 раз.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"65.6%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Пробитие защиты — это опустошение шкалы выносливости врага до его гибели; трофей обычно приходит сам в начале игры.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Если не хватает, повторяйте испытание мощи Они: враги чаще блокируют, если спамить лёгкими атаками (4 гэмма, примерно 2 пробития за раунд).",spoiler:false,labels:["Не подтверждено"],src:["psn2"]}]},{num:49,en:"Helm Splitter",ru:"Разрубатель шлемов",ruOfficial:false,desc:"Разбейте 100 щитов или частей вражеской брони.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"68.2%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Ломайте силой Они каменные щиты и встроенную броню врагов вроде когасира (Kogashira) и хитоцумэ-сё (Hitotsume Sho). Добрать можно в упражнении на мощь Они на тренировочной площадке.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]},{text:"Оружие Они Сотрясатель земли (Earth Shaker) отлично ломает броню и выносливость боссов.",spoiler:false,labels:["Не подтверждено"],src:["psn2"]}]},{num:50,en:"Get This Thing Off Me",ru:"Голодная перчатка",ruOfficial:false,desc:"Поглотите не менее 30 душ одновременно.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"89.6%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Считается число отдельных шаров душ, а не их ценность: быстро убейте около шести врагов и поглотите души разом, пока они не исчезли. Счётчик шаров виден вверху экрана.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:51,en:"Berserker",ru:"Берсерк",ruOfficial:false,desc:"Победите трёх врагов непрерывными атаками брейк-иссен.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"80.5%",rarityLabel:"Common",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Доведите трёх врагов до красной метки (готовность к иссену), затем после каждого брейк-иссена нажимайте лёгкую атаку, чтобы перескочить к следующему. Трофей можно получить уже в обучении, когда на выходе нападает группа врагов.",spoiler:false,labels:["Не подтверждено"],src:["pp1"]}]},{num:52,en:"Genma Griller",ru:"Шашлык из гэмма",ruOfficial:false,desc:"Заставьте пылать трёх врагов одновременно.",descOfficial:false,type:"bronze",hidden:false,dlc:false,group:"",rarity:"13.5%",rarityLabel:"Very Rare",stage:"s1",missable:false,online:false,buggy:false,grind:false,tips:[{text:"Нужна Флейта огненных птиц, прокачанная до заряженного выстрела (удержание R1): соберите трёх слабых врагов вместе и выпустите заряд в середину группы.",spoiler:false,labels:["Подтверждено"],src:["st57","pp1"]},{text:"Враги должны загореться почти одновременно; трофей выпадает через 2–4 секунды.",spoiler:false,labels:["Не подтверждено"],src:["st57"]},{text:"Легко сделать в упражнении на Флейту огненных птиц: убейте летающую голову, сломайте щит, соберите всех врагов в кучу бегом вокруг них и выстрелите — загорается около четырёх за раз.",spoiler:false,labels:["Не подтверждено"],src:["st57"]},{text:"Слабые враги есть в переулке у телепорта «Улица Годзё - Запад»; если не вышло, выйдите в главное меню и загрузите автосохранение у телепорта — враги появятся снова.",spoiler:false,labels:["Не подтверждено"],src:["st57"]},{text:"Сработает и нагината Они: у мест очистки от скверны стоят сосуды с маслом и факел — разбейте сосуды, соберите пару врагов и сломайте факел, а когда земля загорится, раздуйте огонь навыком ветрохлёста.",spoiler:false,labels:["Не подтверждено"],src:["st57"]},{text:"Удобное место — одна из сюжетных локаций: закрытая локация с огнём, много врагов и три бочки с маслом у стены; подходят и флейта, и нагината.",spoiler:false,labels:["Не подтверждено"],src:["st57"]}]}]};
+/*@@DATA:END@@*/
+
+/* ===== ЯДРО ===== */
+const D = DATA || {meta: {}, sources: {}, stages: [], trophies: []};
+const M = D.meta || {};
+const SLUG = 'onimusha-way-of-the-sword';
+const LS = 'plat-guide:onimusha-way-of-the-sword:v1:';
+const TABS = ['now', 'plan', 'trophies', 'extras', 'info'];
+const TYPES = ['platinum', 'gold', 'silver', 'bronze'];
+const TYPE_RU = {platinum: 'Платина', gold: 'Золото', silver: 'Серебро', bronze: 'Бронза'};
+const $ = (s, r = document) => r.querySelector(s);
+
+// localStorage: всё в try/catch
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(LS + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(LS + k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(LS + k); } catch (e) {} }
+};
+
+// как norm() в sync/make_progress.py (str.split() Python = пробелы JS + \x1c-\x1f\x85)
+function norm(s) {
+  return String(s).toLowerCase()
+    .replace(/[‘’‛`´]/g, "'")
+    .replace(/[‐-―−]/g, '-')
+    .replace(/[​-‍﻿]/g, '')
+    .split(/[\s\x1c-\x1f\x85]+/).filter(Boolean).join(' ');
+}
+
+// DOM-помощник: строки — только как текст
+function h(tag, props, ...kids) {
+  const n = document.createElement(tag);
+  if (props) for (const k in props) {
+    const v = props[k];
+    if (v == null || v === false) continue;
+    if (k === 'class') n.className = v;
+    else if (k === 'text') n.textContent = v;
+    else if (k.startsWith('on') && typeof v === 'function') n.addEventListener(k.slice(2), v);
+    else n.setAttribute(k, v === true ? '' : String(v));
+  }
+  add(n, kids);
+  return n;
+}
+function add(n, kids) {
+  for (const c of kids) {
+    if (c == null || c === false) continue;
+    if (Array.isArray(c)) add(n, c);
+    else n.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  }
+  return n;
+}
+const fill = (el, ...kids) => { el.replaceChildren(); return add(el, kids); }
+const safeUrl = u => /^https?:\/\//i.test(String(u || '')) ? String(u) : null;
+
+// даты
+const pad = x => String(x).padStart(2, '0');
+const MON = {jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12};
+function psnDate(s) { // «31st Jul 2026» → «31.07.2026»; иначе как есть
+  s = String(s || '').trim();
+  const m = /^(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3})[A-Za-z]*\.?,?\s+(\d{4})/.exec(s);
+  return m && MON[m[2].toLowerCase()] ? pad(m[1]) + '.' + pad(MON[m[2].toLowerCase()]) + '.' + m[3] : s;
+}
+function isoDate(s, withTime) {
+  if (!s) return '';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) { const [y, m, d] = s.split('-'); return d + '.' + m + '.' + y; }
+  const d = new Date(s);
+  if (isNaN(d)) return String(s);
+  return pad(d.getDate()) + '.' + pad(d.getMonth() + 1) + '.' + d.getFullYear() + (withTime ? ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) : '');
+}
+const ymd = (d = new Date()) => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+
+// трофеи и этапы
+const T = D.trophies || [];
+const byNum = new Map(T.map(t => [t.num, t]));
+const byKey = new Map(T.map(t => [norm(t.en), t]));
+const STAGES = (D.stages || []).slice().sort((a, b) => (a.dlc ? 1 : 0) - (b.dlc ? 1 : 0));
+const stageById = new Map(STAGES.map(s => [s.id, s]));
+const stageTrophies = s => (s && s.trophies || []).map(n => byNum.get(n)).filter(Boolean);
+const HAS_PLAT = M.hasPlatinum !== false;
+const inMain = t => !HAS_PLAT || !t.dlc; // без платины считаем всё
+const HAS_EXTRAS = Array.isArray(M.collectibles) && M.collectibles.length > 0;
+const AVAIL = TABS.filter(t => t !== 'extras' || HAS_EXTRAS);
+
+// состояние
+const S = {
+  psn: new Map(),            // num → строка даты из progress.json
+  psnUpdated: '', psnOk: false,
+  manual: new Set(),         // num
+  fresh: [],                 // num: новые с последней сверки
+  spoilAll: !!store.get('spoilers', false),
+  revealed: new WeakSet(),   // раскрытые спойлеры (элементы текста)
+  pin: store.get('pin', null),
+  filters: Object.assign({stage: '', type: '', undone: false, dlc: false, missable: false, online: false, buggy: false, unverified: false}, store.get('filters', {})),
+  group: store.get('group', 'stage'),
+  fltOpen: !!store.get('fltOpen', false),
+  q: '',
+  planOpen: new Set(),
+  scroll: Object.assign({}, store.get('scroll', {})),
+  tab: null,
+  sheet: null
+};
+if (!['stage', 'type', 'status'].includes(S.group)) S.group = 'stage';
+if (S.pin && !stageById.has(S.pin)) S.pin = null;
+
+// ручной слой (хранится английскими названиями)
+function loadManual() {
+  const a = store.get('manual', []);
+  S.manual = new Set((Array.isArray(a) ? a : []).map(n => byKey.get(norm(n))).filter(Boolean).map(t => t.num));
+}
+function saveManual() { store.set('manual', [...S.manual].map(n => byNum.get(n).en)); }
+const isPsn = n => S.psn.has(n);
+const isManual = n => S.manual.has(n);
+const isDone = n => S.psn.has(n) || S.manual.has(n);
+const psnDateOf = n => S.psn.has(n) ? psnDate(S.psn.get(n)) : '';
+function setManual(num, on) {
+  num = Number(num);
+  if (!byNum.has(num)) return false;
+  if (on) S.manual.add(num); else S.manual.delete(num);
+  saveManual();
+  refresh();
+  return true;
+}
+
+// счётчики (объединение слоёв)
+function stat(list) { let d = 0; for (const t of list) if (isDone(t.num)) d++; return {done: d, total: list.length, pct: list.length ? Math.round(d * 100 / list.length) : 0}; }
+function counts() {
+  const main = T.filter(inMain), dlc = T.filter(t => t.dlc);
+  const byType = {}, dlcByType = {}, byStage = {};
+  for (const ty of TYPES) { byType[ty] = stat(main.filter(t => t.type === ty)); dlcByType[ty] = stat(dlc.filter(t => t.type === ty)); }
+  for (const s of STAGES) byStage[s.id] = stat(stageTrophies(s));
+  return {main: stat(main), dlc: stat(dlc), all: stat(T), byType, dlcByType, byStage};
+}
+
+// текущий этап
+const PLAT = T.find(t => t.type === 'platinum') || null;
+function platDone() {
+  if (PLAT && isDone(PLAT.num)) return true;
+  const tr = HAS_PLAT ? STAGES.filter(s => !s.dlc).flatMap(stageTrophies) : T;
+  return tr.length > 0 && tr.every(t => isDone(t.num));
+}
+function currentStage() {
+  if (S.pin && stageById.has(S.pin)) return {stage: stageById.get(S.pin), pinned: true};
+  if (platDone()) return {stage: null, done: true};
+  const a = STAGES.filter(s => !s.dlc).find(s => stageTrophies(s).some(t => !isDone(t.num)));
+  return {stage: a || STAGES.find(s => !s.dlc) || STAGES[0] || null};
+}
+function pinStage(id) { S.pin = id && stageById.has(id) ? id : null; if (S.pin) store.set('pin', S.pin); else store.del('pin'); refresh(); }
+
+// «новое с последней сверки»: {seen:[en], fresh:[en], upd}
+function updateFresh() {
+  const cur = [...S.psn.keys()].map(n => byNum.get(n).en);
+  const rec = store.get('seen', null);
+  if (!rec || !Array.isArray(rec.seen)) { store.set('seen', {seen: cur, fresh: [], upd: S.psnUpdated}); S.fresh = []; return; }
+  let fresh = Array.isArray(rec.fresh) ? rec.fresh : [];
+  if (rec.upd !== S.psnUpdated) {
+    const seen = new Set(rec.seen.map(norm));
+    fresh = cur.filter(n => !seen.has(norm(n)));
+    store.set('seen', {seen: [...new Set([...rec.seen, ...cur])], fresh, upd: S.psnUpdated});
+  }
+  S.fresh = fresh.map(n => byKey.get(norm(n))).filter(t => t && isPsn(t.num)).map(t => t.num);
+}
+
+// слой PSN
+let psnSig = '';
+async function loadPsn() {
+  try {
+    const r = await fetch('progress.json?t=' + Date.now(), {cache: 'no-store'});
+    if (!r.ok) return;
+    const j = await r.json();
+    if (!j || !Array.isArray(j.earned)) return;
+    const m = new Map();
+    for (const e of j.earned) { const t = e && byKey.get(norm(e.name)); if (t) m.set(t.num, String(e.date || '')); }
+    const sig = String(j.updated || '') + '|' + [...m].join(';');
+    S.psn = m; S.psnUpdated = String(j.updated || ''); S.psnOk = true;
+    updateFresh();
+    if (sig !== psnSig) { psnSig = sig; refresh(); }
+  } catch (e) { /* молча: работаем по ручному слою */ }
+}
+
+// спойлеры
+const spoilHidden = it => !!(it && it.spoiler) && !S.spoilAll && !S.revealed.has(it);
+function setSpoilAll(on) { S.spoilAll = !!on; store.set('spoilers', S.spoilAll); refresh(); }
+function revealSpoiler(it) { if (it) S.revealed.add(it); }
+
+// поиск, фильтры, группировка
+const sNorm = s => norm(s).replace(/ё/g, 'е');
+function searchText(t) { // имена, описание и не скрытые советы
+  return sNorm([t.ru, t.en, t.desc, ...(t.tips || []).filter(it => !spoilHidden(it)).map(it => it.text)].join(' '));
+}
+const hasUnverified = t => (t.tips || []).some(it => (it.labels || []).some(l => l === 'Не подтверждено' || l === 'Устарело?'));
+function setFilters(p) { Object.assign(S.filters, p); store.set('filters', S.filters); }
+function resetFilters() { setFilters({stage: '', type: '', undone: false, dlc: false, missable: false, online: false, buggy: false, unverified: false}); }
+function setGroup(g) { if (['stage', 'type', 'status'].includes(g)) { S.group = g; store.set('group', g); } }
+function setFltOpen(on) { S.fltOpen = !!on; store.set('fltOpen', S.fltOpen); }
+function filtered() {
+  const f = S.filters, q = sNorm(S.q);
+  return T.filter(t => (!f.stage || t.stage === f.stage) && (!f.type || t.type === f.type) && (!f.undone || !isDone(t.num)) &&
+    (!f.dlc || t.dlc) && (!f.missable || t.missable) && (!f.online || t.online) && (!f.buggy || t.buggy) &&
+    (!f.unverified || hasUnverified(t)) && (!q || searchText(t).includes(q)));
+}
+function grouped(list) {
+  let g;
+  if (S.group === 'type') g = TYPES.map(ty => ({key: ty, title: TYPE_RU[ty], items: list.filter(t => t.type === ty)}));
+  else if (S.group === 'status') g = [{key: 'todo', title: 'Не получены', items: list.filter(t => !isDone(t.num))}, {key: 'done', title: 'Получены', items: list.filter(t => isDone(t.num))}];
+  else { g = STAGES.map(s => ({key: s.id, title: s.title, dlc: s.dlc, items: list.filter(t => t.stage === s.id)})); g.push({key: '', title: 'Без этапа', items: list.filter(t => !stageById.has(t.stage))}); }
+  return g.filter(x => x.items.length);
+}
+
+// экспорт / импорт / сброс (только ручной слой)
+function exportJson() {
+  return JSON.stringify({type: 'plat-guide-manual', slug: SLUG, version: 1, exported: new Date().toISOString(), manual: [...S.manual].map(n => byNum.get(n).en)}, null, 2);
+}
+function exportFile() {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([exportJson()], {type: 'application/json'}));
+  a.download = 'plat-guide-' + SLUG + '-' + ymd() + '.json';
+  document.body.append(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+async function copyText(s) {
+  try { await navigator.clipboard.writeText(s); return true; } catch (e) {
+    try { const ta = h('textarea', {style: 'position:fixed;opacity:0'}); ta.value = s; document.body.append(ta); ta.select(); const ok = document.execCommand('copy'); ta.remove(); return ok; } catch (e2) { return false; }
+  }
+}
+const copyExport = () => copyText(exportJson());
+function parseImport(text) { // → {error} | {found:[num], missed:[name]}
+  let j;
+  try { j = JSON.parse(String(text || '').replace(/^﻿/, '')); } catch (e) { return {error: 'Не удалось прочитать JSON.'}; }
+  if (!j || typeof j !== 'object' || j.type !== 'plat-guide-manual') return {error: 'Это не файл ручных отметок гайда.'};
+  if (j.slug !== SLUG) return {error: 'Это отметки другой игры: ' + String(j.slug || 'не указана')};
+  if (j.version !== 1) return {error: 'Неподдерживаемая версия файла: ' + String(j.version)};
+  if (!Array.isArray(j.manual)) return {error: 'В файле нет списка отметок.'};
+  const found = [], missed = [];
+  for (const n of j.manual) { const t = byKey.get(norm(n)); if (t) { if (!found.includes(t.num)) found.push(t.num); } else missed.push(String(n)); }
+  return {found, missed};
+}
+function applyImport(found, replace) { if (replace) S.manual = new Set(); for (const n of found || []) if (byNum.has(n)) S.manual.add(n); saveManual(); refresh(); }
+function resetManual() { S.manual = new Set(); store.del('manual'); refresh(); }
+const readFile = f => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result)); r.onerror = () => no(r.error); r.readAsText(f); });
+
+// перерисовка
+const panel = tab => document.getElementById('p-' + tab);
+function renderTab(tab) {
+  const f = {now: renderNow, plan: renderPlan, trophies: renderTrophies, extras: renderExtras, info: renderInfo}[tab];
+  if (f) f(panel(tab));
+}
+function refresh() {
+  renderHeader($('#hdr'));
+  if (S.tab) renderTab(S.tab);
+  if (S.sheet != null) renderSheet(byNum.get(S.sheet), $('#sheet-body'));
+}
+
+// прокрутка вкладок
+let scrollMute = 0, scrollTimer = 0;
+function saveScroll() { if (S.tab && S.sheet == null && Date.now() > scrollMute) S.scroll[S.tab] = Math.round(scrollY); store.set('scroll', S.scroll); }
+addEventListener('scroll', () => {
+  if (!S.tab || S.sheet != null || Date.now() < scrollMute) return;
+  S.scroll[S.tab] = Math.round(scrollY);
+  clearTimeout(scrollTimer); scrollTimer = setTimeout(() => store.set('scroll', S.scroll), 300);
+}, {passive: true});
+addEventListener('pagehide', saveScroll);
+
+// маршрутизация по хэшу
+const tabBtns = [...document.querySelectorAll('[role=tab][data-tab]')];
+const hashTab = () => { const t = location.hash.replace(/^#/, ''); return AVAIL.includes(t) ? t : null; };
+function show(tab) {
+  if (S.tab && S.tab !== tab) saveScroll();
+  S.tab = tab; store.set('tab', tab);
+  for (const b of tabBtns) { const on = b.dataset.tab === tab; b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; }
+  for (const id of TABS) panel(id).hidden = id !== tab;
+  renderTab(tab);
+  const y = S.scroll[tab] || 0;
+  scrollMute = Date.now() + 200;
+  scrollTo(0, y); requestAnimationFrame(() => scrollTo(0, y));
+}
+function go(tab) {
+  tab = String(tab || '').replace(/^#/, '');
+  if (!AVAIL.includes(tab)) tab = 'now';
+  const nav = () => { if (location.hash !== '#' + tab) location.hash = tab; else if (S.tab !== tab) show(tab); else renderTab(tab); };
+  if (S.sheet != null) closeSheet(nav); else nav();
+}
+addEventListener('hashchange', () => {
+  if (S.sheet != null) hideSheet();
+  const t = hashTab();
+  if (t) show(t); else { history.replaceState(history.state, '', '#now'); show('now'); }
+});
+for (const b of tabBtns) {
+  if (!AVAIL.includes(b.dataset.tab)) b.hidden = true;
+  b.addEventListener('click', () => go(b.dataset.tab));
+  b.addEventListener('keydown', e => { // стрелки по вкладкам
+    const i = AVAIL.indexOf(b.dataset.tab), d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!d) return;
+    e.preventDefault(); const t = AVAIL[(i + d + AVAIL.length) % AVAIL.length]; go(t); document.getElementById('t-' + t).focus();
+  });
+}
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.key === 'Escape' && S.sheet != null) { e.preventDefault(); closeSheet(); return; }
+  const tg = e.target;
+  if (tg && (tg.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName))) return;
+  if (S.sheet != null) return;
+  if (/^[1-5]$/.test(e.key) && AVAIL[+e.key - 1]) { e.preventDefault(); go(AVAIL[+e.key - 1]); }
+  else if (e.key === '/') {
+    e.preventDefault(); go('trophies');
+    setTimeout(() => { const q = $('#p-trophies input[type=search]'); if (q) q.focus(); }, 30);
+  }
+});
+
+// шторка
+const wrap = $('#sheet-wrap'), sheet = $('#sheet'), sheetBody = $('#sheet-body');
+let popPending = false, popThen = null, lastFocus = null, hideTimer = 0;
+const sheetState = () => !!(history.state && history.state.sheet != null);
+function histBack(then) { popPending = true; popThen = then || null; history.back(); }
+addEventListener('popstate', e => {
+  if (popPending) {
+    popPending = false; const f = popThen; popThen = null;
+    if (S.sheet != null && !sheetState()) history.pushState({sheet: S.sheet}, ''); // открыли снова, пока шёл «назад»
+    if (f) f();
+    return;
+  }
+  if (S.sheet != null && !(e.state && e.state.sheet != null)) hideSheet();
+});
+function setInert(on) { for (const id of ['hdr', 'main']) { const n = document.getElementById(id); if (on) n.setAttribute('inert', ''); else n.removeAttribute('inert'); } const tb = $('.tabbar'); if (on) tb.setAttribute('inert', ''); else tb.removeAttribute('inert'); }
+function openSheet(num) {
+  const t = byNum.get(Number(num));
+  if (!t) return false;
+  const was = S.sheet != null;
+  S.sheet = t.num;
+  clearTimeout(hideTimer);
+  if (!was) {
+    lastFocus = document.activeElement;
+    document.documentElement.classList.add('locked');
+    wrap.hidden = false; setInert(true);
+    if (!popPending && !sheetState()) history.pushState({sheet: t.num}, '');
+    requestAnimationFrame(() => wrap.classList.add('open'));
+  }
+  renderSheet(t, sheetBody);
+  sheetBody.scrollTop = 0;
+  const x = $('.sheet-x', sheet); if (x) x.focus({preventScroll: true});
+  return true;
+}
+function hideSheet() {
+  if (S.sheet == null) return;
+  S.sheet = null;
+  wrap.classList.remove('open');
+  sheet.style.transform = '';
+  document.documentElement.classList.remove('locked');
+  setInert(false);
+  clearTimeout(hideTimer);
+  hideTimer = setTimeout(() => { if (S.sheet == null) { wrap.hidden = true; sheetBody.textContent = ''; } }, 220);
+  if (lastFocus && lastFocus.isConnected && lastFocus.focus) lastFocus.focus({preventScroll: true});
+}
+function closeSheet(then) {
+  const was = S.sheet != null;
+  if (was) hideSheet();
+  if (popPending) { if (then) popThen = then; return; }
+  if (was && sheetState()) histBack(then); else if (then) then();
+}
+const sheetOpen = () => S.sheet != null;
+wrap.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeSheet(); });
+// свайп вниз
+let sw = null;
+sheet.addEventListener('touchstart', e => {
+  if (e.touches.length !== 1 || (e.target.closest('.sheet-body') && sheetBody.scrollTop > 0)) { sw = null; return; }
+  sw = {y: e.touches[0].clientY, dy: 0, t: Date.now()};
+}, {passive: true});
+sheet.addEventListener('touchmove', e => {
+  if (!sw) return;
+  sw.dy = e.touches[0].clientY - sw.y;
+  if (sw.dy > 0) { sheet.classList.add('drag'); sheet.style.transform = 'translateY(' + sw.dy + 'px)'; if (e.cancelable) e.preventDefault(); }
+  else if (sw.dy < -6) { sheet.classList.remove('drag'); sheet.style.transform = ''; sw = null; }
+}, {passive: false});
+const swEnd = () => {
+  if (!sw) return;
+  const close = sw.dy > 90 || (sw.dy > 40 && Date.now() - sw.t < 250);
+  sw = null; sheet.classList.remove('drag'); sheet.style.transform = '';
+  if (close) closeSheet();
+};
+sheet.addEventListener('touchend', swEnd);
+sheet.addEventListener('touchcancel', () => { sw = null; sheet.classList.remove('drag'); sheet.style.transform = ''; });
+
+window.App = {go, trophies: () => T, openSheet, closeSheet: () => closeSheet(), sheetOpen, setManual};
+
+/* ===== ЭКРАНЫ ===== */
+// @@SCREENS:BEGIN@@
+// Экраны (перепишет верстальщик экранов). Ядро вызывает: renderHeader(el), renderNow(el), renderPlan(el),
+// renderTrophies(el), renderExtras(el), renderInfo(el), renderSheet(t, el). Из ядра доступны: h(), fill(el, ...) (вместо replaceChildren), D, M, T, STAGES,
+// byNum, stageById, stageTrophies, PLAT, TYPES, TYPE_RU, S, counts(), currentStage(), pinStage(), isPsn/isManual/isDone,
+// psnDateOf(), setManual(), spoilHidden(), revealSpoiler(), setSpoilAll(), filtered(), grouped(), setFilters(),
+// resetFilters(), setGroup(), setFltOpen(), exportFile(), copyExport(), parseImport(), applyImport(), resetManual(),
+// readFile(), isoDate(), safeUrl(), openSheet(), go(), HAS_PLAT. Поиск: input[type=search] в #p-trophies.
+
+// ---- иконки (константы разметки, не данные) ----
+const SV = body => '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + body + '</svg>';
+const PETAL = '<ellipse cx="12" cy="7.3" rx="2.1" ry="3.3"';
+const ICON = {
+  cup: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.35A5 5 0 0 1 13 14.9V18h3v3H8v-3h3v-3.1A5 5 0 0 1 8.35 12H8a4 4 0 0 1-4-4V5h3zM6 7v1a2 2 0 0 0 1.3 1.9A5 5 0 0 1 7 8V7zm11 0v1c0 .66-.1 1.3-.3 1.9A2 2 0 0 0 18 8V7z"/></svg>',
+  eye: SV('<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'),
+  eyeOff: SV('<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/>'),
+  hid: SV('<rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3M12 14.5v2.5"/>'),
+  check: SV('<path class="ck" pathLength="24" d="M5 12.5l4.5 4.5L19 7.5" stroke-width="2.4"/>'),
+  pin: SV('<path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2.2" fill="currentColor"/>'),
+  warn: SV('<path d="M12 3.5 2.5 20h19zM12 10v4.5M12 17.3v.2"/>'),
+  chev: SV('<path d="M6 9.5l6 6 6-6"/>'),
+  filter: SV('<path d="M4 6.5h16M7 12h10M10 17.5h4"/>'),
+  search: SV('<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>'),
+  arrow: SV('<path d="M5 12h14M13 6l6 6-6 6"/>'),
+  oni: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="14" r="5"/><path d="M7.5 10.5C5 7.5 5 4.5 6 2c1 3 3 5 5.2 6.6M16.5 10.5C19 7.5 19 4.5 18 2c-1 3-3 5-5.2 6.6"/><circle cx="12" cy="14" r="1.8" fill="currentColor"/></svg>',
+  kamon: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="currentColor"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.2"/>' +
+    [0, 72, 144, 216, 288].map(a => PETAL + (a ? ' transform="rotate(' + a + ' 12 12)"' : '') + '/>').join('') + '<circle cx="12" cy="12" r="1.4" style="fill:var(--bg)"/></svg>'
+};
+const TAB_ICON = {
+  now: SV('<path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-3 2-4.5 2-7 1.5 1 2 2.2 2 3.5 1.2-2 1.3-4 1-6.5z"/>'),
+  plan: SV('<path d="M3 5.5c6 1.2 12 1.2 18 0M5 9.5h14M7 6.5V21M17 6.5V21M12 9.5V6.8"/>'),
+  trophies: SV('<path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5v1a3 3 0 0 0 3 3M16 6h3v1a3 3 0 0 1-3 3M12 13v4M10 17h4M8.5 20.5h7"/>'),
+  extras: SV('<path d="M7.5 8h9l1 11a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2zM9.5 8 12 4l2.5 4M10 13h4M10 16h4"/>'),
+  info: SV('<path d="M6 4h11a2 2 0 0 1 2 2v12M6 4a2 2 0 0 0-2 2v1h4V6a2 2 0 0 0-2-2zM8 7v11a2 2 0 0 0 2 2h9a2 2 0 0 1-2-2M11 9h5M11 12h5M11 15h3"/>')
+};
+const ORN = '<svg viewBox="0 0 240 12" preserveAspectRatio="xMidYMid meet" width="100%" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 6h96M144 6h96M98 6a5 5 0 0 1 10 0M108 6a5 5 0 0 1 10 0M122 6a5 5 0 0 1 10 0M132 6a5 5 0 0 1 10 0"/><path d="M120 1.5 124.5 6 120 10.5 115.5 6z" style="fill:var(--oni)" stroke="none"/></svg>';
+
+function icon(name, cls) { const s = h('span', {class: 'ico ' + (cls || ''), 'aria-hidden': 'true'}); s.innerHTML = ICON[name] || ''; return s; }
+const hidIcon = () => { const s = icon('hid', 'hid'); s.removeAttribute('aria-hidden'); s.setAttribute('role', 'img'); s.setAttribute('aria-label', 'скрытый'); s.title = 'скрытый'; return s; };
+const orn = () => { const s = h('div', {class: 'orn', 'aria-hidden': 'true'}); s.innerHTML = ORN; return s; };
+const LABEL_CLS = {'Подтверждено': 'ok', 'Не подтверждено': 'unconf', 'Устарело?': 'old', 'Только ПК': 'pc'};
+const KIND_RU = {missable: 'Пропускаемое', nonreturn: 'Точка невозврата', online: 'Онлайн', bug: 'Баг', time: 'Время', patch: 'Патч', dlc: 'DLC', other: 'Важно'};
+const RAR_RU = {'Common': 'обычный', 'Uncommon': 'необычный', 'Rare': 'редкий', 'Very Rare': 'очень редкий', 'Ultra Rare': 'ультраредкий'};
+const reduced = () => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } };
+const painted = new Set(); // вкладки, где уже проигрывалось заполнение полос
+function firstPaint(tab) { const f = !painted.has(tab); painted.add(tab); return f; }
+
+// ---- общие узлы ----
+function splitTitle(s) { // «Этап 2: Зачистка…» → ['Этап 2', 'Зачистка…']
+  const m = /^(Этап\s*\d+)\s*[:.—–-]\s*(.+)$/.exec(String(s || ''));
+  return m ? [m[1], m[2]] : ['', String(s || '')];
+}
+const labelsNode = ls => ls && ls.length ? h('span', {class: 'lbls'}, ls.map(l => h('span', {class: 'lbl lbl-' + (LABEL_CLS[l] || 'x')}, l))) : null;
+function srcsNode(ids, prefix) {
+  const seen = new Set(), list = [];
+  for (const id of ids || []) {
+    const s = D.sources && D.sources[id];
+    if (!s) continue;
+    const k = s.site || id;
+    if (prefix === false && seen.has(k)) continue; // в карточке — по одному на сайт
+    seen.add(k); list.push([id, s]);
+  }
+  if (!list.length) return null;
+  const n = h('span', {class: 'srcs'}, prefix ? prefix : null);
+  list.forEach(([id, s], i) => {
+    if (i) n.append(', ');
+    const u = safeUrl(s.url), title = [s.title, s.date ? isoDate(s.date) : ''].filter(Boolean).join(' · ');
+    n.append(u ? h('a', {href: u, target: '_blank', rel: 'noopener noreferrer', title}, s.site || id) : h('span', {title}, s.site || id));
+  });
+  return n;
+}
+function itemNode(it, tag = 'li') {
+  const n = h(tag, {class: 'item' + (it.kind ? ' k-' + it.kind : '')});
+  if (spoilHidden(it)) { // текст спойлера в DOM не попадает
+    n.classList.add('spoiler');
+    n.append(h('button', {type: 'button', class: 'sp-btn', onclick: () => { revealSpoiler(it); n.replaceWith(itemNode(it, tag)); }}, icon('eye'), h('span', null, 'Показать спойлер')));
+    return n;
+  }
+  const lb = labelsNode(it.labels), sr = srcsNode(it.src, '');
+  add(n, [it.kind && KIND_RU[it.kind] ? h('span', {class: 'kind'}, KIND_RU[it.kind]) : null,
+    h('span', {class: 'txt'}, it.text),
+    lb || sr ? h('span', {class: 'imeta'}, lb, sr) : null]);
+  return n;
+}
+const itemsList = (items, ordered, cls) => items && items.length ? h(ordered ? 'ol' : 'ul', {class: 'items' + (ordered ? ' steps' : '') + (cls ? ' ' + cls : '')}, items.map(it => itemNode(it))) : null;
+const pbar = (st, label, fx) => h('div', {class: 'pbar' + (fx ? ' fx' : '') + (st.total && st.done === st.total ? ' full' : ''), role: 'progressbar', 'aria-valuemin': 0, 'aria-valuemax': st.total, 'aria-valuenow': st.done, 'aria-label': label},
+  h('i', {style: '--p:' + (st.total ? (st.done / st.total).toFixed(4) : 0)}));
+const secH = (text, ico, tag = 'h2') => h(tag, {class: tag === 'h2' ? 'sec-h' : 'sub-h'}, ico ? icon(ico) : null, h('span', null, text));
+const more = (href, text) => h('a', {class: 'more', href}, h('span', null, text), icon('arrow'));
+const rarNum = t => parseFloat(String(t.rarity || '').replace(',', '.'));
+
+// ---- отметки ----
+let justMarked = null;
+const pendingMark = new Set();
+function markManual(t, btn) {
+  if (pendingMark.has(t.num)) return;
+  if (isManual(t.num)) { setManual(t.num, false); return; }
+  const c = btn && btn.closest('.card');
+  if (!c || reduced()) { justMarked = t.num; setManual(t.num, true); justMarked = null; return; }
+  pendingMark.add(t.num); // сначала свечение и галочка на месте, потом перерисовка
+  btn.classList.add('on'); btn.setAttribute('aria-pressed', 'true'); c.classList.add('just');
+  setTimeout(() => { pendingMark.delete(t.num); setManual(t.num, true); }, 520);
+}
+function markNode(t) {
+  if (isPsn(t.num)) return h('span', {class: 'mark psn', role: 'img', 'aria-label': 'Получено, подтверждено PSN'}, h('span', {class: 'mk'}, icon('check')), h('small', null, 'PSN'));
+  const on = isManual(t.num);
+  const b = h('button', {type: 'button', class: 'mark man' + (on ? ' on' : ''), 'aria-pressed': String(on), 'aria-label': (on ? 'Снять ручную отметку: ' : 'Отметить вручную: ') + t.ru,
+    onclick: e => { e.stopPropagation(); markManual(t, b); }}, h('span', {class: 'mk'}, icon('check')));
+  return b;
+}
+
+// ---- карточка трофея ----
+function card(t) {
+  const d = psnDateOf(t.num), r = rarNum(t);
+  const fl = [t.missable && 'Пропускаемый', t.online && 'Онлайн', t.buggy && 'Баг', t.grind && 'Гринд'].filter(Boolean);
+  const src = srcsNode((t.tips || []).flatMap(i => i.src || []), false);
+  const foot = [d ? h('span', {class: 'psn-d'}, 'PSN · получено ' + d) : null, ...fl.map(f => h('span', {class: 'flag' + (f === 'Гринд' ? '' : ' warn')}, f)), src].filter(Boolean);
+  return h('article', {class: 'card t-' + t.type + (isDone(t.num) ? ' done' : '') + (justMarked === t.num ? ' just' : ''), 'data-num': t.num},
+    h('div', {class: 'lft'}, icon('cup', 'tc'), markNode(t)),
+    h('div', {class: 'names'},
+      h('button', {type: 'button', class: 'card-main', onclick: () => openSheet(t.num)}, h('span', {class: 'tru'}, t.ru), t.hidden ? hidIcon() : null),
+      h('span', {class: 'ten', lang: 'en'}, t.en), !t.ruOfficial ? h('small', {class: 'unofficial muted'}, 'неофициальный перевод') : null),
+    t.rarity ? h('span', {class: 'rar' + (r < 10 ? ' rare' : ''), title: RAR_RU[t.rarityLabel] || ''}, t.rarity) : null,
+    foot.length ? h('div', {class: 'cfoot'}, foot) : null);
+}
+const cardsList = list => h('div', {class: 'cards'}, list.map(card));
+
+// ---- шапка ----
+const HDR = {};
+function buildHeader(el) {
+  for (const b of document.querySelectorAll('.tabbar [role=tab][data-tab]')) { // тематические иконки вкладок
+    const s = b.querySelector('svg'), k = b.dataset.tab;
+    if (s && TAB_ICON[k]) { const w = document.createElement('span'); w.innerHTML = TAB_ICON[k]; s.replaceWith(w.firstChild); }
+  }
+  HDR.fillI = h('i');
+  HDR.bar = h('div', {class: 'pbar fx', role: 'progressbar', 'aria-valuemin': 0, 'aria-label': HAS_PLAT ? 'Прогресс до платины' : 'Прогресс'}, HDR.fillI);
+  HDR.count = h('span', {class: 'h-count'});
+  HDR.meta = h('p', {class: 'h-meta'});
+  HDR.spoil = h('button', {type: 'button', class: 'h-spoil', 'aria-label': 'Показать все спойлеры', onclick: () => setSpoilAll(!S.spoilAll)});
+  fill(el, h('div', {class: 'h-in'},
+    h('div', {class: 'h-row'},
+      icon('oni', 'h-emb'),
+      h('div', {class: 'h-tt'}, h('h1', {class: 'h-title'}, M.gameRu || M.gameEn || ''), h('p', {class: 'h-sub'}, HAS_PLAT ? 'Гайд по платине' : 'Гайд по трофеям')),
+      HDR.spoil),
+    h('div', {class: 'h-prog'}, HDR.bar, HDR.count),
+    HDR.meta, orn()));
+}
+function renderHeader(el) {
+  if (!HDR.bar || !el.contains(HDR.bar)) buildHeader(el);
+  const c = counts(), m = c.main, p = m.total ? m.done / m.total : 0;
+  let psn = 0, man = 0;
+  for (const t of T) if (inMain(t)) { if (isPsn(t.num)) psn++; else if (isManual(t.num)) man++; }
+  HDR.fillI.style.setProperty('--p', p.toFixed(4));
+  HDR.bar.setAttribute('aria-valuemax', m.total); HDR.bar.setAttribute('aria-valuenow', m.done);
+  HDR.bar.classList.toggle('full', m.total > 0 && m.done === m.total);
+  HDR.count.textContent = m.done + ' из ' + m.total;
+  HDR.meta.textContent = [Math.round(p * 100) + ' %', 'PSN ' + psn, 'вручную ' + man, S.psnUpdated ? 'сверка ' + isoDate(S.psnUpdated, true) : 'сверки с PSN нет'].join(' · ');
+  HDR.spoil.setAttribute('aria-pressed', String(S.spoilAll));
+  HDR.spoil.title = S.spoilAll ? 'Спойлеры показаны' : 'Спойлеры скрыты';
+  HDR.spoil.innerHTML = S.spoilAll ? ICON.eye : ICON.eyeOff;
+}
+
+// ---- «Сейчас» ----
+function platBurst() {
+  if (reduced()) return;
+  const fx = h('div', {class: 'plat-fx', 'aria-hidden': 'true'}, h('i', {class: 'ring r1'}), h('i', {class: 'ring r2'}),
+    Array.from({length: 12}, (_, i) => h('i', {class: 'petal' + (i % 3 ? '' : ' oni'), style: '--a:' + (i * 30) + 'deg'})));
+  document.body.append(fx);
+  const hd = document.getElementById('hdr'); hd.classList.add('flash');
+  setTimeout(() => { fx.remove(); hd.classList.remove('flash'); }, 1700);
+}
+function stageHead(s, st, extra) {
+  const [eb, name] = splitTitle(s.title);
+  return h('div', {class: 'st-head' + (st.total && st.done === st.total ? ' full' : '')},
+    icon('kamon', 'kamon'),
+    h('div', {class: 'st-tt'}, h('p', {class: 'st-eb'}, [eb, extra].filter(Boolean).join(' · ')), h('h2', {class: 'st-name'}, name)),
+    h('span', {class: 'st-n'}, st.done + '/' + st.total));
+}
+function stageNow(cur, fx) {
+  const s = cur.stage, st = counts().byStage[s.id];
+  const next = s.dlc ? null : STAGES.slice(STAGES.indexOf(s) + 1).find(x => !x.dlc) || null;
+  const imp = x => (x && x.warnings || []).filter(w => w.kind === 'nonreturn' || w.kind === 'missable');
+  const missT = [s, next].filter(Boolean).flatMap(stageTrophies).filter(t => t.missable && !isDone(t.num));
+  const todo = stageTrophies(s).filter(t => !isDone(t.num));
+  const nowImp = imp(s), nextImp = imp(next);
+  const strip = nowImp.length || nextImp.length || missT.length ? h('section', {class: 'main-strip'},
+    h('h3', {class: 'ms-h'}, icon('pin'), h('span', null, 'Главное')),
+    itemsList(nowImp, false, 'ms-list'),
+    nextImp.length ? [h('p', {class: 'ms-next'}, 'Следующий этап: ' + splitTitle(next.title)[1]), itemsList(nextImp, false, 'ms-list')] : null,
+    missT.length ? [h('p', {class: 'ms-next'}, 'Пропускаемые трофеи'), cardsList(missT)] : null,
+    more('#plan', 'Все предупреждения')) : null;
+  const pins = STAGES.length > 1 ? h('section', {class: 'pin-row'},
+    h('h3', {class: 'sub-h'}, icon('pin'), h('span', null, 'Я здесь')),
+    h('div', {class: 'chips-row'}, STAGES.map(x => {
+      const [eb, name] = splitTitle(x.title), on = x === s;
+      return h('button', {type: 'button', class: 'pin-chip' + (on ? ' on' : ''), 'aria-pressed': String(on), title: x.title, 'aria-label': 'Я здесь: ' + x.title,
+        onclick: () => { if (!(on && cur.pinned)) pinStage(x.id); }}, (eb.replace(/^Этап\s*/, '') || name.slice(0, 12)) + (x.dlc ? ' DLC' : ''));
+    })),
+    cur.pinned ? h('button', {type: 'button', class: 'btn ghost', onclick: () => pinStage(null)}, 'Снять «Я здесь» — выбирать этап автоматически')
+      : h('p', {class: 'hint'}, 'Этап выбран автоматически: первый, где остались трофеи. Нажмите номер, чтобы закрепить другой.')) : null;
+  return h('section', {class: 'now-stage'},
+    h('div', {class: 'card-box'},
+      stageHead(s, st, cur.pinned ? 'закреплён' : 'текущий'),
+      s.dlc ? h('p', {class: 'tagline'}, h('span', {class: 'tag'}, 'На платину не влияет')) : null,
+      h('p', {class: 'goal'}, s.goal),
+      s.time ? h('p', {class: 'time'}, 'Время: ' + s.time) : null,
+      h('div', {class: 'st-prog'}, pbar(st, 'Прогресс этапа', fx), h('span', {class: 'st-count'}, st.done + ' из ' + st.total))),
+    strip,
+    s.steps && s.steps.length ? [secH('Шаги', null, 'h3'), itemsList(s.steps, true)] : null,
+    secH('Осталось в этапе', null, 'h3'),
+    todo.length ? cardsList(todo) : h('p', {class: 'muted'}, 'Все трофеи этапа получены.'),
+    pins);
+}
+function renderNow(el) {
+  const cur = currentStage(), c = counts(), out = [], fx = firstPaint('now');
+  if (!HAS_PLAT) out.push(h('p', {class: 'note'}, 'У игры нет платины: прогресс считается по всем трофеям.'));
+  if (S.fresh.length) out.push(h('section', {class: 'fresh'}, secH('Новое с последней сверки', null, 'h3'), cardsList(S.fresh.map(n => byNum.get(n)).filter(Boolean))));
+  if (cur.done) {
+    const d = PLAT ? psnDateOf(PLAT.num) : '', dlcSt = STAGES.filter(s => s.dlc);
+    out.push(h('section', {class: 'plat-done t-platinum'},
+      h('div', {class: 'pd-cup'}, icon('cup', 'tc')),
+      h('h2', null, HAS_PLAT ? 'Платина получена' : 'Все трофеи получены'),
+      d ? h('p', {class: 'pd-date'}, 'Дата: ' + d) : null,
+      h('p', {class: 'pd-sum'}, 'Итог: ' + c.main.done + ' из ' + c.main.total),
+      h('div', {class: 'tiles'}, TYPES.filter(ty => c.byType[ty].total).map(ty => h('div', {class: 'tile t-' + ty}, icon('cup', 'tc'), h('span', {class: 'tl-n'}, c.byType[ty].done + '/' + c.byType[ty].total), h('span', {class: 'tl-l'}, TYPE_RU[ty])))),
+      orn(),
+      dlcSt.length ? h('p', null, more('#plan', 'Дополнения'), h('span', {class: 'muted'}, ' ' + c.dlc.done + ' из ' + c.dlc.total)) : more('#plan', 'Весь план')));
+    if (HAS_PLAT && !store.get('platFx', false)) { store.set('platFx', true); setTimeout(platBurst, 80); }
+  } else if (cur.stage) out.push(stageNow(cur, fx));
+  else out.push(h('p', {class: 'muted'}, 'Этапов нет.'));
+  fill(el, out);
+}
+
+// ---- «План» ----
+function stageBlock(s, st, isCur, isPin, fx) {
+  const d = h('details', {class: 'stage' + (s.dlc ? ' dlc' : '') + (isCur ? ' cur' : '') + (st.total && st.done === st.total ? ' full' : ''), open: S.planOpen.has(s.id)});
+  const [eb, name] = splitTitle(s.title);
+  const body = () => h('div', {class: 'st-body'}, // строится при раскрытии: закрытые этапы не держат разметку
+    h('p', {class: 'goal'}, s.goal),
+    s.time ? h('p', {class: 'time'}, 'Время: ' + s.time) : null,
+    h('div', {class: 'row'}, isPin ? h('button', {type: 'button', class: 'btn ghost', onclick: () => pinStage(null)}, icon('pin'), 'Снять «Я здесь»')
+      : h('button', {type: 'button', class: 'btn', onclick: () => { pinStage(s.id); go('now'); }}, icon('pin'), 'Я здесь')),
+    s.steps && s.steps.length ? [secH('Шаги', null, 'h3'), itemsList(s.steps, true)] : null,
+    s.warnings && s.warnings.length ? [secH('Предупреждения', 'warn', 'h3'), itemsList(s.warnings, false, 'warn-list')] : null,
+    stageTrophies(s).length ? [secH('Трофеи', null, 'h3'), cardsList(stageTrophies(s))] : null);
+  d.addEventListener('toggle', () => {
+    if (d.open) { S.planOpen.add(s.id); if (!d.querySelector('.st-body')) d.append(body()); }
+    else { S.planOpen.delete(s.id); const b = d.querySelector('.st-body'); if (b) b.remove(); }
+  });
+  d.append(
+    h('summary', null,
+      icon('kamon', 'kamon'),
+      h('span', {class: 'st-tt'},
+        h('span', {class: 'st-eb'}, [eb, isCur ? (isPin ? 'закреплён' : 'вы здесь') : ''].filter(Boolean).join(' · ')),
+        h('span', {class: 'st-name'}, name),
+        s.dlc ? h('span', {class: 'tag'}, 'На платину не влияет') : null),
+      h('span', {class: 'st-n'}, st.done + '/' + st.total),
+      icon('chev', 'chev'),
+      pbar(st, 'Прогресс этапа', fx)),
+    d.open ? body() : null);
+  return d;
+}
+function renderPlan(el) {
+  const c = counts(), cur = currentStage(), mw = M.mainWarnings || [], fx = firstPaint('plan');
+  fill(el,
+    mw.length ? h('section', {class: 'warns'}, secH('Главные предупреждения', 'warn'), itemsList(mw, false, 'warn-list')) : null,
+    secH('Роудмап', null),
+    h('div', {class: 'stages'}, STAGES.map(s => stageBlock(s, c.byStage[s.id], cur.stage === s, !!cur.pinned && cur.stage === s, fx))));
+}
+
+// ---- «Трофеи» ----
+function buildTrophyControls(el) {
+  const f = S.filters, upd = () => renderTrophyList(el);
+  const q = h('input', {type: 'search', id: 'q', class: 'search', placeholder: 'Поиск: русское или английское название', 'aria-label': 'Поиск трофея', autocomplete: 'off', enterkeyhint: 'search', spellcheck: 'false'});
+  q.value = S.q;
+  q.addEventListener('input', () => { S.q = q.value; upd(); });
+  const sel = (key, label, opts) => {
+    const s = h('select', {'aria-label': label}, opts.map(([v, t]) => h('option', {value: v}, t)));
+    s.value = f[key]; s.addEventListener('change', () => { setFilters({[key]: s.value}); upd(); });
+    return h('label', {class: 'fl'}, h('span', null, label), s);
+  };
+  const chk = (key, label) => {
+    const c = h('input', {type: 'checkbox'}); c.checked = !!f[key];
+    c.addEventListener('change', () => { setFilters({[key]: c.checked}); upd(); });
+    return h('label', {class: 'fc'}, c, h('span', null, label));
+  };
+  const seg = h('div', {class: 'seg', role: 'group', 'aria-label': 'Группировка'});
+  const segBtns = [['stage', 'По этапам'], ['type', 'По типу'], ['status', 'По статусу']].map(([v, t]) =>
+    h('button', {type: 'button', 'aria-pressed': String(S.group === v), onclick: () => { setGroup(v); segBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === S.group))); upd(); }, 'data-v': v}, t));
+  seg.append(...segBtns);
+  const fp = h('div', {id: 'flt', class: 'flt', hidden: !S.fltOpen},
+    h('div', {class: 'fsel'},
+      sel('stage', 'Этап', [['', 'Все этапы'], ...STAGES.map(s => [s.id, s.title])]),
+      sel('type', 'Тип', [['', 'Все типы'], ...TYPES.map(t => [t, TYPE_RU[t]])])),
+    h('div', {class: 'fchips'},
+      chk('undone', 'Невыполненные'), T.some(t => t.dlc) ? chk('dlc', 'Только DLC') : null,
+      chk('missable', 'Пропускаемые'), chk('online', 'Онлайн'), chk('buggy', 'С багами'), chk('unverified', 'Непроверенная информация')),
+    h('div', {class: 'fl'}, h('span', null, 'Группировка'), seg),
+    h('div', {class: 'row'}, h('button', {type: 'button', class: 'btn ghost', onclick: () => { resetFilters(); fill(el); renderTrophies(el); }}, 'Сбросить фильтры')));
+  const tg = h('button', {type: 'button', class: 'btn flt-btn', 'aria-expanded': String(S.fltOpen), 'aria-controls': 'flt',
+    onclick: () => { setFltOpen(!S.fltOpen); fp.hidden = !S.fltOpen; tg.setAttribute('aria-expanded', String(S.fltOpen)); }},
+    icon('filter'), h('span', {class: 'flt-t'}, 'Фильтры'), h('span', {class: 'flt-n'}));
+  el.append(h('div', {class: 'tools'}, h('label', {class: 'sbox'}, icon('search'), q), tg), fp,
+    h('p', {class: 'found', 'aria-live': 'polite'}), h('div', {class: 'tlist'}));
+}
+function renderTrophyList(el) {
+  const list = filtered(), act = Object.values(S.filters).filter(Boolean).length, c = counts();
+  el.querySelector('.found').textContent = 'Найдено: ' + list.length + ' из ' + T.length;
+  const n = el.querySelector('.flt-n'); n.textContent = act ? String(act) : ''; n.hidden = !act;
+  fill(el.querySelector('.tlist'), list.length
+    ? grouped(list).map(g => {
+      const st = S.group === 'stage' && c.byStage[g.key];
+      return h('section', {class: 'grp'},
+        h('h2', {class: 'grp-h'}, S.group === 'type' ? h('span', {class: 'ico-w t-' + g.key}, icon('cup', 'tc')) : null,
+          h('span', {class: 'grp-t'}, g.title), h('span', {class: 'grp-n'}, st ? st.done + '/' + st.total : String(g.items.length)),
+          g.dlc ? h('span', {class: 'tag'}, 'На платину не влияет') : null),
+        cardsList(g.items));
+    })
+    : [h('p', {class: 'muted empty'}, 'Ничего не найдено. Измените запрос или сбросьте фильтры.')]);
+}
+function renderTrophies(el) { if (!el.firstChild) buildTrophyControls(el); renderTrophyList(el); }
+
+// ---- «Сбор» ----
+function renderExtras(el) {
+  const grind = T.filter(t => t.grind);
+  fill(el, secH('Сбор', null), h('p', {class: 'lead'}, 'Что собирать, где искать и как сократить гринд. Поштучного учёта нет — отмечайте сами трофеи.'),
+    itemsList(M.collectibles || [], false, 'coll-list'),
+    grind.length ? [secH('Трофеи с гриндом', null, 'h3'), cardsList(grind)] : null);
+}
+
+// ---- «Инфо» ----
+let infoNote = '';
+function renderInfo(el) {
+  const c = counts(), fl = M.flags || {};
+  const est = (title, arr, fmt) => [secH(title, null, 'h3'), arr && arr.length
+    ? h('div', {class: 'est'}, arr.map(v => h('div', {class: 'est-row'},
+      h('span', {class: 'est-v'}, fmt(v)),
+      h('span', {class: 'est-s'}, v.scope || ''),
+      v.votes || (v.src && v.src.length) ? h('span', {class: 'imeta'}, v.votes ? h('span', {class: 'votes'}, 'голосов: ' + v.votes) : null, srcsNode(v.src, '')) : null)))
+    : h('p', {class: 'muted'}, 'нет данных')];
+  const tiles = by => h('div', {class: 'tiles'}, TYPES.filter(ty => by[ty].total).map(ty => h('div', {class: 'tile t-' + ty}, icon('cup', 'tc'), h('span', {class: 'tl-n'}, by[ty].done + '/' + by[ty].total), h('span', {class: 'tl-l'}, TYPE_RU[ty]))));
+  const unoff = T.filter(t => !t.ruOfficial || !t.descOfficial).length;
+  // импорт
+  const msg = h('p', {class: 'imp-msg', 'aria-live': 'polite'}, infoNote); infoNote = '';
+  const acts = h('div', {class: 'row imp-acts', hidden: true});
+  let pend = null;
+  const check = text => {
+    const r = parseImport(text); pend = null; acts.hidden = true;
+    if (r.error) { msg.textContent = r.error; return; }
+    pend = r;
+    msg.textContent = 'Найдено: ' + r.found.length + ', не совпало: ' + r.missed.length + (r.missed.length ? ' (будут пропущены: ' + r.missed.slice(0, 5).join('; ') + (r.missed.length > 5 ? '…' : '') + ')' : '') + '.';
+    acts.hidden = false;
+  };
+  const doImp = replace => { if (!pend) return; infoNote = (replace ? 'Отметки заменены: ' : 'Добавлено отметок: ') + pend.found.length + '.'; applyImport(pend.found, replace); };
+  acts.append(h('button', {type: 'button', class: 'btn', onclick: () => doImp(false)}, 'Добавить к текущим'),
+    h('button', {type: 'button', class: 'btn ghost', onclick: () => doImp(true)}, 'Заменить текущие'));
+  const ta = h('textarea', {rows: 4, class: 'imp-text', placeholder: 'Или вставьте сюда текст экспорта', 'aria-label': 'Текст для импорта'});
+  const file = h('input', {type: 'file', accept: '.json,application/json', 'aria-label': 'Файл отметок', class: 'imp-file'});
+  file.addEventListener('change', async () => {
+    const f = file.files && file.files[0]; if (!f) return;
+    try { const t = await readFile(f); ta.value = t; check(t); } catch (e) { msg.textContent = 'Не удалось прочитать файл.'; }
+    file.value = '';
+  });
+  const copyMsg = h('span', {class: 'muted', 'aria-live': 'polite'});
+  const src = Object.entries(D.sources || {});
+  fill(el,
+    secH('Сводка', null),
+    est('Сложность', M.difficulty, v => v.value + (v.scale ? '/' + v.scale : '')),
+    est('Время', M.hours, v => v.value),
+    est('Прохождений', M.playthroughs, v => v.value),
+    secH(HAS_PLAT ? 'Трофеи до платины' : 'Трофеи', null, 'h3'),
+    h('p', {class: 'tot'}, (HAS_PLAT ? 'Основная игра: ' : 'Всего: ') + c.main.done + ' из ' + c.main.total),
+    tiles(c.byType),
+    c.dlc.total ? [h('p', {class: 'tot'}, 'DLC (на платину не влияют): ' + c.dlc.done + ' из ' + c.dlc.total), tiles(c.dlcByType)] : h('p', {class: 'muted'}, 'DLC: нет'),
+    !HAS_PLAT ? h('p', {class: 'note'}, 'У игры нет платины: прогресс считается по всем трофеям.') : null,
+    h('ul', {class: 'flags'}, [['online', 'Онлайн-трофеи'], ['missable', 'Пропускаемые'], ['bugs', 'Баги'], ['grind', 'Гринд']].map(([k, l]) => h('li', {class: 'flg' + (fl[k] ? ' yes' : '')}, l + ': ' + (fl[k] ? 'есть' : 'нет')))),
+    unoff ? h('p', {class: 'unoff-all'}, unoff === T.length ? 'Русские названия и описания трофеев — неофициальный перевод.' : 'Неофициальный перевод у ' + unoff + ' трофеев из ' + T.length + ' (помечено в карточке трофея).') : null,
+    orn(),
+    (M.conflicts || []).length ? [secH('Расхождения источников', null), h('div', {class: 'conflicts'}, M.conflicts.map(x => h('div', {class: 'conflict'}, h('h3', {class: 'cf-h'}, x.topic || ''), itemsList(x.variants || []))))] : null,
+    (M.unverified || []).length ? [secH('Что не удалось проверить', null), h('ul', {class: 'items unv'}, M.unverified.map(u => h('li', {class: 'item'}, h('span', {class: 'txt'}, u))))] : null,
+    src.length ? [secH('Источники', null), h('ul', {class: 'srcs src-list'}, src.map(([id, s]) => { const u = safeUrl(s.url); return h('li', null, u ? h('a', {href: u, target: '_blank', rel: 'noopener noreferrer'}, s.site || id) : h('span', null, s.site || id), s.title ? h('span', {class: 'src-t'}, s.title) : null); }))] : null,
+    h('p', {class: 'muted small'}, 'Данные собраны: ' + (isoDate(M.collectedAt) || 'нет даты') + (M.version ? ' · версия: ' + M.version : '')),
+    orn(),
+    secH('Настройки', null),
+    h('div', {class: 'row'}, h('button', {type: 'button', class: 'btn', 'aria-pressed': String(S.spoilAll), onclick: () => setSpoilAll(!S.spoilAll)}, icon(S.spoilAll ? 'eye' : 'eyeOff'), S.spoilAll ? 'Скрыть спойлеры' : 'Показать все спойлеры')),
+    secH('Ручные отметки', null, 'h3'),
+    h('p', {class: 'muted'}, 'Ручных отметок: ' + S.manual.size + '. Экспорт, импорт и сброс касаются только их; отметки PSN не меняются.'),
+    h('div', {class: 'row'},
+      h('button', {type: 'button', class: 'btn', onclick: exportFile}, 'Экспорт'),
+      h('button', {type: 'button', class: 'btn', onclick: async () => { copyMsg.textContent = await copyExport() ? 'Скопировано' : 'Не удалось скопировать'; }}, 'Скопировать'), copyMsg),
+    secH('Импорт', null, 'h3'),
+    h('div', {class: 'imp'}, file, ta,
+      h('div', {class: 'row'}, h('button', {type: 'button', class: 'btn', onclick: () => check(ta.value)}, 'Проверить текст')),
+      msg, acts),
+    secH('Сброс', null, 'h3'),
+    h('div', {class: 'row'}, h('button', {type: 'button', class: 'btn danger', onclick: () => { if (confirm('Сбросить все ручные отметки? Отметки PSN останутся.')) { infoNote = 'Ручные отметки сброшены.'; resetManual(); } }}, 'Сбросить ручные отметки')));
+}
+
+// ---- шторка ----
+function renderSheet(t, el) {
+  if (!t) return;
+  const st = stageById.get(t.stage), d = psnDateOf(t.num), man = isManual(t.num), r = rarNum(t);
+  const fl = [t.missable && 'Пропускаемый', t.online && 'Онлайн', t.buggy && 'Возможен баг', t.grind && 'Гринд'].filter(Boolean);
+  const rar = t.rarity ? t.rarity + (RAR_RU[t.rarityLabel] ? ' · ' + RAR_RU[t.rarityLabel] : '') : '';
+  fill(el,
+    h('div', {class: 'sh-head t-' + t.type + (isDone(t.num) ? ' done' : '') + (justMarked === t.num ? ' just' : '')},
+      h('div', {class: 'sh-cup'}, icon('cup', 'tc')),
+      h('div', {class: 'names'},
+        h('h2', {id: 'sheet-title', class: 'tru'}, h('span', null, t.ru), t.hidden ? hidIcon() : null),
+        h('p', {class: 'ten', lang: 'en'}, t.en),
+        !t.ruOfficial || !t.descOfficial ? h('p', {class: 'unoff'}, 'неофициальный перевод') : null)),
+    h('p', {class: 'desc'}, t.desc),
+    h('div', {class: 'chips'},
+      h('span', {class: 'chip ty t-' + t.type}, TYPE_RU[t.type]),
+      rar ? h('span', {class: 'chip' + (r < 10 ? ' rare' : '')}, rar) : null,
+      st ? h('span', {class: 'chip'}, splitTitle(st.title)[0] || st.title) : null,
+      t.dlc ? h('span', {class: 'chip'}, 'DLC') : null,
+      fl.map(f => h('span', {class: 'chip' + (f === 'Гринд' ? '' : ' warn')}, f))),
+    isPsn(t.num) ? h('div', {class: 'sh-st'}, markNode(t), h('span', null, 'Получено' + (d ? ' ' + d : '')), h('span', {class: 'muted small'}, 'отметка PSN, не снимается'))
+      : h('div', {class: 'sh-st'}, h('button', {type: 'button', class: 'btn man-btn' + (man ? ' on' : ''), 'aria-pressed': String(man),
+        onclick: () => { justMarked = man ? null : t.num; setManual(t.num, !man); justMarked = null; }}, h('span', {class: 'mk'}, icon('check')), man ? 'Снять ручную отметку' : 'Отметить вручную')),
+    t.tips && t.tips.length ? [orn(), h('section', {class: 'how'}, h('h3', {class: 'sub-h'}, 'Как получить'), itemsList(t.tips))] : null);
+}
+// @@SCREENS:END@@
+
+// старт
+function init() {
+  document.title = 'Платина: ' + (M.gameRu || M.gameEn || 'Onimusha: Way of the Sword');
+  if (sheetState()) history.replaceState(null, '');
+  try { history.scrollRestoration = 'manual'; } catch (e) {} // иначе «назад» подставляет прокрутку записи до saveScroll старой вкладки
+  loadManual();
+  renderHeader($('#hdr'));
+  let t = hashTab();
+  if (!t) { const last = store.get('tab', 'now'); t = AVAIL.includes(last) ? last : 'now'; history.replaceState(null, '', '#' + t); }
+  show(t);
+  loadPsn();
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') loadPsn(); else saveScroll(); });
+}
+init();
+</script>
+</body>
+</html>
